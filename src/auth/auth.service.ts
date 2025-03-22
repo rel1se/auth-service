@@ -6,14 +6,15 @@ import {
 	UnauthorizedException
 } from '@nestjs/common'
 import { RegisterDto } from './dto/register.dto'
-import { UserService } from '../user/user.service'
+import { UserService } from '@/user/user.service'
 import { Request, Response } from 'express'
 import { LoginDto } from './dto/login.dto'
 import { verify } from 'argon2'
 import { ConfigService } from '@nestjs/config'
-import { AuthMethod, User } from '../../prisma/__generated__'
+import { AuthMethod, User } from '@prisma/__generated__'
 import { ProviderService } from './provider/provider.service'
-import { PrismaService } from '../prisma/prisma.service'
+import { PrismaService } from '@/prisma/prisma.service'
+import { EmailConfirmationService } from '@/auth/email-confirmation/email-confirmation.service'
 
 @Injectable()
 export class AuthService {
@@ -22,7 +23,9 @@ export class AuthService {
 		private readonly prismaService: PrismaService,
 		private readonly userService: UserService,
 		private readonly configService: ConfigService,
-		private readonly providerService: ProviderService) {}
+		private readonly providerService: ProviderService,
+		private readonly emailConfirmationService: EmailConfirmationService
+	) {}
 
 	public async register(req: Request, dto: RegisterDto) {
 		const isExists = await this.userService.findByEmail(dto.email)
@@ -42,7 +45,13 @@ export class AuthService {
 			false
 		)
 
-		return this.saveSession(req, newUser)
+		await this.emailConfirmationService.sendVerificationToken(newUser)
+
+		return {
+			message:
+				'Вы успешно зарегистрировались. ' +
+				'Пожалуйста, подтвердите ваш email. Сообщение было отправлено на ваш почтовый адрес.'
+		}
 	}
 
 	public async login(req: Request, dto: LoginDto){
@@ -59,6 +68,13 @@ export class AuthService {
 		if (!isValidPassword) {
 			throw new UnauthorizedException(
 				'Неверный пароль. Пожалуйста, попробуйте еще раз или восстановите пароль, если забыли его.'
+			)
+		}
+
+		if (!user.isVerified){
+			await this.emailConfirmationService.sendVerificationToken(user)
+			throw new UnauthorizedException(
+				'Ваш email не подтвержден. Пожалуйста, проверьте вашу почту и подтвердите адрес.'
 			)
 		}
 
