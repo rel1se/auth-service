@@ -1,4 +1,4 @@
-import { UserRole } from '../../../prisma/__generated__'
+import { UserRole } from '@prisma/__generated__'
 import { applyDecorators, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '../guards/auth.guard'
 import { RolesGuard } from '../guards/roles.guard'

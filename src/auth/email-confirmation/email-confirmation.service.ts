@@ -1,7 +1,7 @@
 import { BadRequestException, forwardRef, Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { PrismaService } from '@/prisma/prisma.service'
 import {v4 as uuidv4} from 'uuid'
-import { TokenType, User } from '@prisma/__generated__'
+import { TokenType } from '@prisma/__generated__'
 import { ConfirmationDto } from '@/auth/email-confirmation/dto/confirmation.dto'
 import { Request } from 'express'
 import { MailService } from '@/libs/mail/mail.service'

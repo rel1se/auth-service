@@ -1,4 +1,4 @@
-import { UserRole } from '../../../prisma/__generated__'
+import { UserRole } from '@prisma/__generated__'
 import { SetMetadata } from '@nestjs/common'
 
 

@@ -6,7 +6,6 @@ import {
 	Param,
 	Post
 } from '@nestjs/common'
-import { Recaptcha } from '@nestlab/google-recaptcha'
 
 import { NewPasswordDto } from './dto/new-password.dto'
 import { ResetPasswordDto } from './dto/reset-password.dto'
@@ -18,14 +17,12 @@ export class PasswordRecoveryController {
 		private readonly passwordRecoveryService: PasswordRecoveryService
 	) {}
 
-	@Recaptcha()
 	@Post('reset')
 	@HttpCode(HttpStatus.OK)
 	public async resetPassword(@Body() dto: ResetPasswordDto) {
 		return this.passwordRecoveryService.resetPassword(dto)
 	}
 
-	@Recaptcha()
 	@Post('new/:token')
 	@HttpCode(HttpStatus.OK)
 	public async newPassword(
