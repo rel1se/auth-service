@@ -152,6 +152,23 @@ exports.Prisma.TokenScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.OrganizationScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  avatar: 'avatar',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.OrganizationMembershipScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  organizationId: 'organizationId',
+  role: 'role',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -183,10 +200,17 @@ exports.TokenType = exports.$Enums.TokenType = {
   PASSWORD_RESET: 'PASSWORD_RESET'
 };
 
+exports.OrganizationRole = exports.$Enums.OrganizationRole = {
+  ADMIN: 'ADMIN',
+  MEMBER: 'MEMBER'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Account: 'Account',
-  Token: 'Token'
+  Token: 'Token',
+  Organization: 'Organization',
+  OrganizationMembership: 'OrganizationMembership'
 };
 
 /**

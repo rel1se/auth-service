@@ -9,7 +9,8 @@ COPY prisma/ ./prisma/
 COPY .env* ./
 
 # Install dependencies with Prisma
-RUN apk add --no-cache curl openssl && \
+RUN apk update && \
+    apk add --no-cache curl openssl && \
     npm ci --include=dev && \
     npx prisma generate
 

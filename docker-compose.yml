@@ -2,7 +2,10 @@ version: '3.7'
 
 services:
   app:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: auth-service-app
     container_name: auth-service
     restart: unless-stopped
     ports:

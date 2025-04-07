@@ -26,6 +26,8 @@ model User {
 
   accounts Account[]
 
+  memberships OrganizationMembership[]
+
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
@@ -64,6 +66,37 @@ model Token {
   @@map("tokens")
 }
 
+model Organization {
+  id     String @id @default(uuid())
+  name   String
+  avatar Bytes?
+
+  memberships OrganizationMembership[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("organizations")
+}
+
+model OrganizationMembership {
+  id String @id @default(uuid())
+
+  userId         String
+  organizationId String
+
+  // Роли: Admin, Member
+  role OrganizationRole @default(MEMBER)
+
+  user         User         @relation(fields: [userId], references: [id])
+  organization Organization @relation(fields: [organizationId], references: [id])
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("organization_memberships")
+}
+
 enum UserRole {
   REGULAR
   ADMIN
@@ -79,4 +112,9 @@ enum TokenType {
   VERIFICATION
   TWO_FACTOR
   PASSWORD_RESET
+}
+
+enum OrganizationRole {
+  ADMIN
+  MEMBER
 }
