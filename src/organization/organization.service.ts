@@ -33,7 +33,7 @@ export class OrganizationService {
 	}
 
 	async getOrganizationById(organizationId: string) {
-		return this.prisma.organization.findUnique({
+		const org = await this.prisma.organization.findUnique({
 			where: { id: organizationId },
 			include: {
 				memberships: {
@@ -41,8 +41,15 @@ export class OrganizationService {
 						user: true,
 					},
 				},
+				boards: true,
 			},
 		});
+
+		if (!org) {
+			throw new NotFoundException('Организация не найдена');
+		}
+
+		return org;
 	}
 
 	async inviteMember(

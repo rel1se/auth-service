@@ -38,12 +38,59 @@ export type Organization = $Result.DefaultSelection<Prisma.$OrganizationPayload>
  * 
  */
 export type OrganizationMembership = $Result.DefaultSelection<Prisma.$OrganizationMembershipPayload>
+/**
+ * Model Board
+ * 
+ */
+export type Board = $Result.DefaultSelection<Prisma.$BoardPayload>
+/**
+ * Model List
+ * 
+ */
+export type List = $Result.DefaultSelection<Prisma.$ListPayload>
+/**
+ * Model Card
+ * 
+ */
+export type Card = $Result.DefaultSelection<Prisma.$CardPayload>
+/**
+ * Model AuditLog
+ * 
+ */
+export type AuditLog = $Result.DefaultSelection<Prisma.$AuditLogPayload>
 
 /**
  * Enums
  */
 export namespace $Enums {
-  export const UserRole: {
+  export const STATUS: {
+  TODO: 'TODO',
+  IN_PROGRESS: 'IN_PROGRESS',
+  DONE: 'DONE'
+};
+
+export type STATUS = (typeof STATUS)[keyof typeof STATUS]
+
+
+export const ACTION: {
+  CREATE: 'CREATE',
+  UPDATE: 'UPDATE',
+  DELETE: 'DELETE'
+};
+
+export type ACTION = (typeof ACTION)[keyof typeof ACTION]
+
+
+export const ENTITY_TYPE: {
+  BOARD: 'BOARD',
+  LIST: 'LIST',
+  CARD: 'CARD'
+};
+
+export type ENTITY_TYPE = (typeof ENTITY_TYPE)[keyof typeof ENTITY_TYPE]
+
+
+export const UserRole: {
   REGULAR: 'REGULAR',
   ADMIN: 'ADMIN'
 };
@@ -77,6 +124,18 @@ export const OrganizationRole: {
 export type OrganizationRole = (typeof OrganizationRole)[keyof typeof OrganizationRole]
 
 }
+
+export type STATUS = $Enums.STATUS
+
+export const STATUS: typeof $Enums.STATUS
+
+export type ACTION = $Enums.ACTION
+
+export const ACTION: typeof $Enums.ACTION
+
+export type ENTITY_TYPE = $Enums.ENTITY_TYPE
+
+export const ENTITY_TYPE: typeof $Enums.ENTITY_TYPE
 
 export type UserRole = $Enums.UserRole
 
@@ -268,6 +327,46 @@ export class PrismaClient<
     * ```
     */
   get organizationMembership(): Prisma.OrganizationMembershipDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.board`: Exposes CRUD operations for the **Board** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Boards
+    * const boards = await prisma.board.findMany()
+    * ```
+    */
+  get board(): Prisma.BoardDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.list`: Exposes CRUD operations for the **List** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Lists
+    * const lists = await prisma.list.findMany()
+    * ```
+    */
+  get list(): Prisma.ListDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.card`: Exposes CRUD operations for the **Card** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Cards
+    * const cards = await prisma.card.findMany()
+    * ```
+    */
+  get card(): Prisma.CardDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.auditLog`: Exposes CRUD operations for the **AuditLog** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AuditLogs
+    * const auditLogs = await prisma.auditLog.findMany()
+    * ```
+    */
+  get auditLog(): Prisma.AuditLogDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -326,8 +425,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.5.0
-   * Query Engine version: 173f8d54f8d52e692c7e27e72a88314ec7aeff60
+   * Prisma Client JS version: 6.6.0
+   * Query Engine version: f676762280b54cd07c770017ed3711ddde35f37a
    */
   export type PrismaVersion = {
     client: string
@@ -712,7 +811,11 @@ export namespace Prisma {
     Account: 'Account',
     Token: 'Token',
     Organization: 'Organization',
-    OrganizationMembership: 'OrganizationMembership'
+    OrganizationMembership: 'OrganizationMembership',
+    Board: 'Board',
+    List: 'List',
+    Card: 'Card',
+    AuditLog: 'AuditLog'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -731,7 +834,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "account" | "token" | "organization" | "organizationMembership"
+      modelProps: "user" | "account" | "token" | "organization" | "organizationMembership" | "board" | "list" | "card" | "auditLog"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1105,6 +1208,302 @@ export namespace Prisma {
           }
         }
       }
+      Board: {
+        payload: Prisma.$BoardPayload<ExtArgs>
+        fields: Prisma.BoardFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BoardFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BoardPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BoardFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BoardPayload>
+          }
+          findFirst: {
+            args: Prisma.BoardFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BoardPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BoardFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BoardPayload>
+          }
+          findMany: {
+            args: Prisma.BoardFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BoardPayload>[]
+          }
+          create: {
+            args: Prisma.BoardCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BoardPayload>
+          }
+          createMany: {
+            args: Prisma.BoardCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BoardCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BoardPayload>[]
+          }
+          delete: {
+            args: Prisma.BoardDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BoardPayload>
+          }
+          update: {
+            args: Prisma.BoardUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BoardPayload>
+          }
+          deleteMany: {
+            args: Prisma.BoardDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BoardUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.BoardUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BoardPayload>[]
+          }
+          upsert: {
+            args: Prisma.BoardUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BoardPayload>
+          }
+          aggregate: {
+            args: Prisma.BoardAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBoard>
+          }
+          groupBy: {
+            args: Prisma.BoardGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BoardGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BoardCountArgs<ExtArgs>
+            result: $Utils.Optional<BoardCountAggregateOutputType> | number
+          }
+        }
+      }
+      List: {
+        payload: Prisma.$ListPayload<ExtArgs>
+        fields: Prisma.ListFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ListFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ListPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ListFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ListPayload>
+          }
+          findFirst: {
+            args: Prisma.ListFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ListPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ListFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ListPayload>
+          }
+          findMany: {
+            args: Prisma.ListFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ListPayload>[]
+          }
+          create: {
+            args: Prisma.ListCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ListPayload>
+          }
+          createMany: {
+            args: Prisma.ListCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ListCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ListPayload>[]
+          }
+          delete: {
+            args: Prisma.ListDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ListPayload>
+          }
+          update: {
+            args: Prisma.ListUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ListPayload>
+          }
+          deleteMany: {
+            args: Prisma.ListDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ListUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ListUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ListPayload>[]
+          }
+          upsert: {
+            args: Prisma.ListUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ListPayload>
+          }
+          aggregate: {
+            args: Prisma.ListAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateList>
+          }
+          groupBy: {
+            args: Prisma.ListGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ListGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ListCountArgs<ExtArgs>
+            result: $Utils.Optional<ListCountAggregateOutputType> | number
+          }
+        }
+      }
+      Card: {
+        payload: Prisma.$CardPayload<ExtArgs>
+        fields: Prisma.CardFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CardFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CardPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CardFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CardPayload>
+          }
+          findFirst: {
+            args: Prisma.CardFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CardPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CardFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CardPayload>
+          }
+          findMany: {
+            args: Prisma.CardFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CardPayload>[]
+          }
+          create: {
+            args: Prisma.CardCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CardPayload>
+          }
+          createMany: {
+            args: Prisma.CardCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CardCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CardPayload>[]
+          }
+          delete: {
+            args: Prisma.CardDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CardPayload>
+          }
+          update: {
+            args: Prisma.CardUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CardPayload>
+          }
+          deleteMany: {
+            args: Prisma.CardDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CardUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CardUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CardPayload>[]
+          }
+          upsert: {
+            args: Prisma.CardUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CardPayload>
+          }
+          aggregate: {
+            args: Prisma.CardAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCard>
+          }
+          groupBy: {
+            args: Prisma.CardGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CardGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CardCountArgs<ExtArgs>
+            result: $Utils.Optional<CardCountAggregateOutputType> | number
+          }
+        }
+      }
+      AuditLog: {
+        payload: Prisma.$AuditLogPayload<ExtArgs>
+        fields: Prisma.AuditLogFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AuditLogFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AuditLogFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload>
+          }
+          findFirst: {
+            args: Prisma.AuditLogFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AuditLogFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload>
+          }
+          findMany: {
+            args: Prisma.AuditLogFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload>[]
+          }
+          create: {
+            args: Prisma.AuditLogCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload>
+          }
+          createMany: {
+            args: Prisma.AuditLogCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AuditLogCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload>[]
+          }
+          delete: {
+            args: Prisma.AuditLogDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload>
+          }
+          update: {
+            args: Prisma.AuditLogUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload>
+          }
+          deleteMany: {
+            args: Prisma.AuditLogDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AuditLogUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AuditLogUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload>[]
+          }
+          upsert: {
+            args: Prisma.AuditLogUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload>
+          }
+          aggregate: {
+            args: Prisma.AuditLogAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAuditLog>
+          }
+          groupBy: {
+            args: Prisma.AuditLogGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AuditLogGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AuditLogCountArgs<ExtArgs>
+            result: $Utils.Optional<AuditLogCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1194,6 +1593,10 @@ export namespace Prisma {
     token?: TokenOmit
     organization?: OrganizationOmit
     organizationMembership?: OrganizationMembershipOmit
+    board?: BoardOmit
+    list?: ListOmit
+    card?: CardOmit
+    auditLog?: AuditLogOmit
   }
 
   /* Types for Logging */
@@ -1329,10 +1732,12 @@ export namespace Prisma {
 
   export type OrganizationCountOutputType = {
     memberships: number
+    boards: number
   }
 
   export type OrganizationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     memberships?: boolean | OrganizationCountOutputTypeCountMembershipsArgs
+    boards?: boolean | OrganizationCountOutputTypeCountBoardsArgs
   }
 
   // Custom InputTypes
@@ -1351,6 +1756,75 @@ export namespace Prisma {
    */
   export type OrganizationCountOutputTypeCountMembershipsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: OrganizationMembershipWhereInput
+  }
+
+  /**
+   * OrganizationCountOutputType without action
+   */
+  export type OrganizationCountOutputTypeCountBoardsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BoardWhereInput
+  }
+
+
+  /**
+   * Count Type BoardCountOutputType
+   */
+
+  export type BoardCountOutputType = {
+    List: number
+  }
+
+  export type BoardCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    List?: boolean | BoardCountOutputTypeCountListArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * BoardCountOutputType without action
+   */
+  export type BoardCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BoardCountOutputType
+     */
+    select?: BoardCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * BoardCountOutputType without action
+   */
+  export type BoardCountOutputTypeCountListArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ListWhereInput
+  }
+
+
+  /**
+   * Count Type ListCountOutputType
+   */
+
+  export type ListCountOutputType = {
+    cards: number
+  }
+
+  export type ListCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    cards?: boolean | ListCountOutputTypeCountCardsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ListCountOutputType without action
+   */
+  export type ListCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ListCountOutputType
+     */
+    select?: ListCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ListCountOutputType without action
+   */
+  export type ListCountOutputTypeCountCardsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CardWhereInput
   }
 
 
@@ -2067,7 +2541,7 @@ export namespace Prisma {
 
   /**
    * Fields of the User model
-   */ 
+   */
   interface UserFieldRefs {
     readonly id: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
@@ -3253,7 +3727,7 @@ export namespace Prisma {
 
   /**
    * Fields of the Account model
-   */ 
+   */
   interface AccountFieldRefs {
     readonly id: FieldRef<"Account", 'String'>
     readonly type: FieldRef<"Account", 'String'>
@@ -4331,7 +4805,7 @@ export namespace Prisma {
 
   /**
    * Fields of the Token model
-   */ 
+   */
   interface TokenFieldRefs {
     readonly id: FieldRef<"Token", 'String'>
     readonly email: FieldRef<"Token", 'String'>
@@ -4870,6 +5344,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     memberships?: boolean | Organization$membershipsArgs<ExtArgs>
+    boards?: boolean | Organization$boardsArgs<ExtArgs>
     _count?: boolean | OrganizationCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["organization"]>
 
@@ -4900,6 +5375,7 @@ export namespace Prisma {
   export type OrganizationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "avatar" | "createdAt" | "updatedAt", ExtArgs["result"]["organization"]>
   export type OrganizationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     memberships?: boolean | Organization$membershipsArgs<ExtArgs>
+    boards?: boolean | Organization$boardsArgs<ExtArgs>
     _count?: boolean | OrganizationCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type OrganizationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -4909,6 +5385,7 @@ export namespace Prisma {
     name: "Organization"
     objects: {
       memberships: Prisma.$OrganizationMembershipPayload<ExtArgs>[]
+      boards: Prisma.$BoardPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5311,6 +5788,7 @@ export namespace Prisma {
   export interface Prisma__OrganizationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     memberships<T extends Organization$membershipsArgs<ExtArgs> = {}>(args?: Subset<T, Organization$membershipsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrganizationMembershipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    boards<T extends Organization$boardsArgs<ExtArgs> = {}>(args?: Subset<T, Organization$boardsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BoardPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5338,7 +5816,7 @@ export namespace Prisma {
 
   /**
    * Fields of the Organization model
-   */ 
+   */
   interface OrganizationFieldRefs {
     readonly id: FieldRef<"Organization", 'String'>
     readonly name: FieldRef<"Organization", 'String'>
@@ -5754,6 +6232,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: OrganizationMembershipScalarFieldEnum | OrganizationMembershipScalarFieldEnum[]
+  }
+
+  /**
+   * Organization.boards
+   */
+  export type Organization$boardsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Board
+     */
+    select?: BoardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Board
+     */
+    omit?: BoardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardInclude<ExtArgs> | null
+    where?: BoardWhereInput
+    orderBy?: BoardOrderByWithRelationInput | BoardOrderByWithRelationInput[]
+    cursor?: BoardWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BoardScalarFieldEnum | BoardScalarFieldEnum[]
   }
 
   /**
@@ -6432,7 +6934,7 @@ export namespace Prisma {
 
   /**
    * Fields of the OrganizationMembership model
-   */ 
+   */
   interface OrganizationMembershipFieldRefs {
     readonly id: FieldRef<"OrganizationMembership", 'String'>
     readonly userId: FieldRef<"OrganizationMembership", 'String'>
@@ -6855,6 +7357,4485 @@ export namespace Prisma {
 
 
   /**
+   * Model Board
+   */
+
+  export type AggregateBoard = {
+    _count: BoardCountAggregateOutputType | null
+    _min: BoardMinAggregateOutputType | null
+    _max: BoardMaxAggregateOutputType | null
+  }
+
+  export type BoardMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    orgId: string | null
+    imageId: string | null
+    imageThumbUrl: string | null
+    imageFullUrl: string | null
+    imageLinkHTML: string | null
+    imageUserName: string | null
+    createdAt: Date | null
+  }
+
+  export type BoardMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    orgId: string | null
+    imageId: string | null
+    imageThumbUrl: string | null
+    imageFullUrl: string | null
+    imageLinkHTML: string | null
+    imageUserName: string | null
+    createdAt: Date | null
+  }
+
+  export type BoardCountAggregateOutputType = {
+    id: number
+    title: number
+    orgId: number
+    imageId: number
+    imageThumbUrl: number
+    imageFullUrl: number
+    imageLinkHTML: number
+    imageUserName: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type BoardMinAggregateInputType = {
+    id?: true
+    title?: true
+    orgId?: true
+    imageId?: true
+    imageThumbUrl?: true
+    imageFullUrl?: true
+    imageLinkHTML?: true
+    imageUserName?: true
+    createdAt?: true
+  }
+
+  export type BoardMaxAggregateInputType = {
+    id?: true
+    title?: true
+    orgId?: true
+    imageId?: true
+    imageThumbUrl?: true
+    imageFullUrl?: true
+    imageLinkHTML?: true
+    imageUserName?: true
+    createdAt?: true
+  }
+
+  export type BoardCountAggregateInputType = {
+    id?: true
+    title?: true
+    orgId?: true
+    imageId?: true
+    imageThumbUrl?: true
+    imageFullUrl?: true
+    imageLinkHTML?: true
+    imageUserName?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type BoardAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Board to aggregate.
+     */
+    where?: BoardWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Boards to fetch.
+     */
+    orderBy?: BoardOrderByWithRelationInput | BoardOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BoardWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Boards from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Boards.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Boards
+    **/
+    _count?: true | BoardCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BoardMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BoardMaxAggregateInputType
+  }
+
+  export type GetBoardAggregateType<T extends BoardAggregateArgs> = {
+        [P in keyof T & keyof AggregateBoard]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBoard[P]>
+      : GetScalarType<T[P], AggregateBoard[P]>
+  }
+
+
+
+
+  export type BoardGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BoardWhereInput
+    orderBy?: BoardOrderByWithAggregationInput | BoardOrderByWithAggregationInput[]
+    by: BoardScalarFieldEnum[] | BoardScalarFieldEnum
+    having?: BoardScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BoardCountAggregateInputType | true
+    _min?: BoardMinAggregateInputType
+    _max?: BoardMaxAggregateInputType
+  }
+
+  export type BoardGroupByOutputType = {
+    id: string
+    title: string
+    orgId: string
+    imageId: string
+    imageThumbUrl: string
+    imageFullUrl: string
+    imageLinkHTML: string
+    imageUserName: string
+    createdAt: Date
+    _count: BoardCountAggregateOutputType | null
+    _min: BoardMinAggregateOutputType | null
+    _max: BoardMaxAggregateOutputType | null
+  }
+
+  type GetBoardGroupByPayload<T extends BoardGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BoardGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BoardGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BoardGroupByOutputType[P]>
+            : GetScalarType<T[P], BoardGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BoardSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    orgId?: boolean
+    imageId?: boolean
+    imageThumbUrl?: boolean
+    imageFullUrl?: boolean
+    imageLinkHTML?: boolean
+    imageUserName?: boolean
+    createdAt?: boolean
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    List?: boolean | Board$ListArgs<ExtArgs>
+    _count?: boolean | BoardCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["board"]>
+
+  export type BoardSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    orgId?: boolean
+    imageId?: boolean
+    imageThumbUrl?: boolean
+    imageFullUrl?: boolean
+    imageLinkHTML?: boolean
+    imageUserName?: boolean
+    createdAt?: boolean
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["board"]>
+
+  export type BoardSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    orgId?: boolean
+    imageId?: boolean
+    imageThumbUrl?: boolean
+    imageFullUrl?: boolean
+    imageLinkHTML?: boolean
+    imageUserName?: boolean
+    createdAt?: boolean
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["board"]>
+
+  export type BoardSelectScalar = {
+    id?: boolean
+    title?: boolean
+    orgId?: boolean
+    imageId?: boolean
+    imageThumbUrl?: boolean
+    imageFullUrl?: boolean
+    imageLinkHTML?: boolean
+    imageUserName?: boolean
+    createdAt?: boolean
+  }
+
+  export type BoardOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "orgId" | "imageId" | "imageThumbUrl" | "imageFullUrl" | "imageLinkHTML" | "imageUserName" | "createdAt", ExtArgs["result"]["board"]>
+  export type BoardInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    List?: boolean | Board$ListArgs<ExtArgs>
+    _count?: boolean | BoardCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type BoardIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }
+  export type BoardIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }
+
+  export type $BoardPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Board"
+    objects: {
+      organization: Prisma.$OrganizationPayload<ExtArgs>
+      List: Prisma.$ListPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      orgId: string
+      imageId: string
+      imageThumbUrl: string
+      imageFullUrl: string
+      imageLinkHTML: string
+      imageUserName: string
+      createdAt: Date
+    }, ExtArgs["result"]["board"]>
+    composites: {}
+  }
+
+  type BoardGetPayload<S extends boolean | null | undefined | BoardDefaultArgs> = $Result.GetResult<Prisma.$BoardPayload, S>
+
+  type BoardCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<BoardFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: BoardCountAggregateInputType | true
+    }
+
+  export interface BoardDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Board'], meta: { name: 'Board' } }
+    /**
+     * Find zero or one Board that matches the filter.
+     * @param {BoardFindUniqueArgs} args - Arguments to find a Board
+     * @example
+     * // Get one Board
+     * const board = await prisma.board.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BoardFindUniqueArgs>(args: SelectSubset<T, BoardFindUniqueArgs<ExtArgs>>): Prisma__BoardClient<$Result.GetResult<Prisma.$BoardPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Board that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {BoardFindUniqueOrThrowArgs} args - Arguments to find a Board
+     * @example
+     * // Get one Board
+     * const board = await prisma.board.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BoardFindUniqueOrThrowArgs>(args: SelectSubset<T, BoardFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BoardClient<$Result.GetResult<Prisma.$BoardPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Board that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BoardFindFirstArgs} args - Arguments to find a Board
+     * @example
+     * // Get one Board
+     * const board = await prisma.board.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BoardFindFirstArgs>(args?: SelectSubset<T, BoardFindFirstArgs<ExtArgs>>): Prisma__BoardClient<$Result.GetResult<Prisma.$BoardPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Board that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BoardFindFirstOrThrowArgs} args - Arguments to find a Board
+     * @example
+     * // Get one Board
+     * const board = await prisma.board.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BoardFindFirstOrThrowArgs>(args?: SelectSubset<T, BoardFindFirstOrThrowArgs<ExtArgs>>): Prisma__BoardClient<$Result.GetResult<Prisma.$BoardPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Boards that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BoardFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Boards
+     * const boards = await prisma.board.findMany()
+     * 
+     * // Get first 10 Boards
+     * const boards = await prisma.board.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const boardWithIdOnly = await prisma.board.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BoardFindManyArgs>(args?: SelectSubset<T, BoardFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BoardPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Board.
+     * @param {BoardCreateArgs} args - Arguments to create a Board.
+     * @example
+     * // Create one Board
+     * const Board = await prisma.board.create({
+     *   data: {
+     *     // ... data to create a Board
+     *   }
+     * })
+     * 
+     */
+    create<T extends BoardCreateArgs>(args: SelectSubset<T, BoardCreateArgs<ExtArgs>>): Prisma__BoardClient<$Result.GetResult<Prisma.$BoardPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Boards.
+     * @param {BoardCreateManyArgs} args - Arguments to create many Boards.
+     * @example
+     * // Create many Boards
+     * const board = await prisma.board.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BoardCreateManyArgs>(args?: SelectSubset<T, BoardCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Boards and returns the data saved in the database.
+     * @param {BoardCreateManyAndReturnArgs} args - Arguments to create many Boards.
+     * @example
+     * // Create many Boards
+     * const board = await prisma.board.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Boards and only return the `id`
+     * const boardWithIdOnly = await prisma.board.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BoardCreateManyAndReturnArgs>(args?: SelectSubset<T, BoardCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BoardPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Board.
+     * @param {BoardDeleteArgs} args - Arguments to delete one Board.
+     * @example
+     * // Delete one Board
+     * const Board = await prisma.board.delete({
+     *   where: {
+     *     // ... filter to delete one Board
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BoardDeleteArgs>(args: SelectSubset<T, BoardDeleteArgs<ExtArgs>>): Prisma__BoardClient<$Result.GetResult<Prisma.$BoardPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Board.
+     * @param {BoardUpdateArgs} args - Arguments to update one Board.
+     * @example
+     * // Update one Board
+     * const board = await prisma.board.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BoardUpdateArgs>(args: SelectSubset<T, BoardUpdateArgs<ExtArgs>>): Prisma__BoardClient<$Result.GetResult<Prisma.$BoardPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Boards.
+     * @param {BoardDeleteManyArgs} args - Arguments to filter Boards to delete.
+     * @example
+     * // Delete a few Boards
+     * const { count } = await prisma.board.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BoardDeleteManyArgs>(args?: SelectSubset<T, BoardDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Boards.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BoardUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Boards
+     * const board = await prisma.board.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BoardUpdateManyArgs>(args: SelectSubset<T, BoardUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Boards and returns the data updated in the database.
+     * @param {BoardUpdateManyAndReturnArgs} args - Arguments to update many Boards.
+     * @example
+     * // Update many Boards
+     * const board = await prisma.board.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Boards and only return the `id`
+     * const boardWithIdOnly = await prisma.board.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends BoardUpdateManyAndReturnArgs>(args: SelectSubset<T, BoardUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BoardPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Board.
+     * @param {BoardUpsertArgs} args - Arguments to update or create a Board.
+     * @example
+     * // Update or create a Board
+     * const board = await prisma.board.upsert({
+     *   create: {
+     *     // ... data to create a Board
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Board we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BoardUpsertArgs>(args: SelectSubset<T, BoardUpsertArgs<ExtArgs>>): Prisma__BoardClient<$Result.GetResult<Prisma.$BoardPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Boards.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BoardCountArgs} args - Arguments to filter Boards to count.
+     * @example
+     * // Count the number of Boards
+     * const count = await prisma.board.count({
+     *   where: {
+     *     // ... the filter for the Boards we want to count
+     *   }
+     * })
+    **/
+    count<T extends BoardCountArgs>(
+      args?: Subset<T, BoardCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BoardCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Board.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BoardAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BoardAggregateArgs>(args: Subset<T, BoardAggregateArgs>): Prisma.PrismaPromise<GetBoardAggregateType<T>>
+
+    /**
+     * Group by Board.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BoardGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BoardGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BoardGroupByArgs['orderBy'] }
+        : { orderBy?: BoardGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BoardGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBoardGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Board model
+   */
+  readonly fields: BoardFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Board.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BoardClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    organization<T extends OrganizationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrganizationDefaultArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    List<T extends Board$ListArgs<ExtArgs> = {}>(args?: Subset<T, Board$ListArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ListPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Board model
+   */
+  interface BoardFieldRefs {
+    readonly id: FieldRef<"Board", 'String'>
+    readonly title: FieldRef<"Board", 'String'>
+    readonly orgId: FieldRef<"Board", 'String'>
+    readonly imageId: FieldRef<"Board", 'String'>
+    readonly imageThumbUrl: FieldRef<"Board", 'String'>
+    readonly imageFullUrl: FieldRef<"Board", 'String'>
+    readonly imageLinkHTML: FieldRef<"Board", 'String'>
+    readonly imageUserName: FieldRef<"Board", 'String'>
+    readonly createdAt: FieldRef<"Board", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Board findUnique
+   */
+  export type BoardFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Board
+     */
+    select?: BoardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Board
+     */
+    omit?: BoardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardInclude<ExtArgs> | null
+    /**
+     * Filter, which Board to fetch.
+     */
+    where: BoardWhereUniqueInput
+  }
+
+  /**
+   * Board findUniqueOrThrow
+   */
+  export type BoardFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Board
+     */
+    select?: BoardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Board
+     */
+    omit?: BoardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardInclude<ExtArgs> | null
+    /**
+     * Filter, which Board to fetch.
+     */
+    where: BoardWhereUniqueInput
+  }
+
+  /**
+   * Board findFirst
+   */
+  export type BoardFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Board
+     */
+    select?: BoardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Board
+     */
+    omit?: BoardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardInclude<ExtArgs> | null
+    /**
+     * Filter, which Board to fetch.
+     */
+    where?: BoardWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Boards to fetch.
+     */
+    orderBy?: BoardOrderByWithRelationInput | BoardOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Boards.
+     */
+    cursor?: BoardWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Boards from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Boards.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Boards.
+     */
+    distinct?: BoardScalarFieldEnum | BoardScalarFieldEnum[]
+  }
+
+  /**
+   * Board findFirstOrThrow
+   */
+  export type BoardFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Board
+     */
+    select?: BoardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Board
+     */
+    omit?: BoardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardInclude<ExtArgs> | null
+    /**
+     * Filter, which Board to fetch.
+     */
+    where?: BoardWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Boards to fetch.
+     */
+    orderBy?: BoardOrderByWithRelationInput | BoardOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Boards.
+     */
+    cursor?: BoardWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Boards from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Boards.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Boards.
+     */
+    distinct?: BoardScalarFieldEnum | BoardScalarFieldEnum[]
+  }
+
+  /**
+   * Board findMany
+   */
+  export type BoardFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Board
+     */
+    select?: BoardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Board
+     */
+    omit?: BoardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardInclude<ExtArgs> | null
+    /**
+     * Filter, which Boards to fetch.
+     */
+    where?: BoardWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Boards to fetch.
+     */
+    orderBy?: BoardOrderByWithRelationInput | BoardOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Boards.
+     */
+    cursor?: BoardWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Boards from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Boards.
+     */
+    skip?: number
+    distinct?: BoardScalarFieldEnum | BoardScalarFieldEnum[]
+  }
+
+  /**
+   * Board create
+   */
+  export type BoardCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Board
+     */
+    select?: BoardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Board
+     */
+    omit?: BoardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Board.
+     */
+    data: XOR<BoardCreateInput, BoardUncheckedCreateInput>
+  }
+
+  /**
+   * Board createMany
+   */
+  export type BoardCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Boards.
+     */
+    data: BoardCreateManyInput | BoardCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Board createManyAndReturn
+   */
+  export type BoardCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Board
+     */
+    select?: BoardSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Board
+     */
+    omit?: BoardOmit<ExtArgs> | null
+    /**
+     * The data used to create many Boards.
+     */
+    data: BoardCreateManyInput | BoardCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Board update
+   */
+  export type BoardUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Board
+     */
+    select?: BoardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Board
+     */
+    omit?: BoardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Board.
+     */
+    data: XOR<BoardUpdateInput, BoardUncheckedUpdateInput>
+    /**
+     * Choose, which Board to update.
+     */
+    where: BoardWhereUniqueInput
+  }
+
+  /**
+   * Board updateMany
+   */
+  export type BoardUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Boards.
+     */
+    data: XOR<BoardUpdateManyMutationInput, BoardUncheckedUpdateManyInput>
+    /**
+     * Filter which Boards to update
+     */
+    where?: BoardWhereInput
+    /**
+     * Limit how many Boards to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Board updateManyAndReturn
+   */
+  export type BoardUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Board
+     */
+    select?: BoardSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Board
+     */
+    omit?: BoardOmit<ExtArgs> | null
+    /**
+     * The data used to update Boards.
+     */
+    data: XOR<BoardUpdateManyMutationInput, BoardUncheckedUpdateManyInput>
+    /**
+     * Filter which Boards to update
+     */
+    where?: BoardWhereInput
+    /**
+     * Limit how many Boards to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Board upsert
+   */
+  export type BoardUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Board
+     */
+    select?: BoardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Board
+     */
+    omit?: BoardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Board to update in case it exists.
+     */
+    where: BoardWhereUniqueInput
+    /**
+     * In case the Board found by the `where` argument doesn't exist, create a new Board with this data.
+     */
+    create: XOR<BoardCreateInput, BoardUncheckedCreateInput>
+    /**
+     * In case the Board was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BoardUpdateInput, BoardUncheckedUpdateInput>
+  }
+
+  /**
+   * Board delete
+   */
+  export type BoardDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Board
+     */
+    select?: BoardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Board
+     */
+    omit?: BoardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardInclude<ExtArgs> | null
+    /**
+     * Filter which Board to delete.
+     */
+    where: BoardWhereUniqueInput
+  }
+
+  /**
+   * Board deleteMany
+   */
+  export type BoardDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Boards to delete
+     */
+    where?: BoardWhereInput
+    /**
+     * Limit how many Boards to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Board.List
+   */
+  export type Board$ListArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the List
+     */
+    select?: ListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the List
+     */
+    omit?: ListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ListInclude<ExtArgs> | null
+    where?: ListWhereInput
+    orderBy?: ListOrderByWithRelationInput | ListOrderByWithRelationInput[]
+    cursor?: ListWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ListScalarFieldEnum | ListScalarFieldEnum[]
+  }
+
+  /**
+   * Board without action
+   */
+  export type BoardDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Board
+     */
+    select?: BoardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Board
+     */
+    omit?: BoardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model List
+   */
+
+  export type AggregateList = {
+    _count: ListCountAggregateOutputType | null
+    _avg: ListAvgAggregateOutputType | null
+    _sum: ListSumAggregateOutputType | null
+    _min: ListMinAggregateOutputType | null
+    _max: ListMaxAggregateOutputType | null
+  }
+
+  export type ListAvgAggregateOutputType = {
+    order: number | null
+  }
+
+  export type ListSumAggregateOutputType = {
+    order: number | null
+  }
+
+  export type ListMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    order: number | null
+    boardId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ListMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    order: number | null
+    boardId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ListCountAggregateOutputType = {
+    id: number
+    title: number
+    order: number
+    boardId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ListAvgAggregateInputType = {
+    order?: true
+  }
+
+  export type ListSumAggregateInputType = {
+    order?: true
+  }
+
+  export type ListMinAggregateInputType = {
+    id?: true
+    title?: true
+    order?: true
+    boardId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ListMaxAggregateInputType = {
+    id?: true
+    title?: true
+    order?: true
+    boardId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ListCountAggregateInputType = {
+    id?: true
+    title?: true
+    order?: true
+    boardId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ListAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which List to aggregate.
+     */
+    where?: ListWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Lists to fetch.
+     */
+    orderBy?: ListOrderByWithRelationInput | ListOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ListWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Lists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Lists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Lists
+    **/
+    _count?: true | ListCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ListAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ListSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ListMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ListMaxAggregateInputType
+  }
+
+  export type GetListAggregateType<T extends ListAggregateArgs> = {
+        [P in keyof T & keyof AggregateList]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateList[P]>
+      : GetScalarType<T[P], AggregateList[P]>
+  }
+
+
+
+
+  export type ListGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ListWhereInput
+    orderBy?: ListOrderByWithAggregationInput | ListOrderByWithAggregationInput[]
+    by: ListScalarFieldEnum[] | ListScalarFieldEnum
+    having?: ListScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ListCountAggregateInputType | true
+    _avg?: ListAvgAggregateInputType
+    _sum?: ListSumAggregateInputType
+    _min?: ListMinAggregateInputType
+    _max?: ListMaxAggregateInputType
+  }
+
+  export type ListGroupByOutputType = {
+    id: string
+    title: string
+    order: number
+    boardId: string
+    createdAt: Date
+    updatedAt: Date
+    _count: ListCountAggregateOutputType | null
+    _avg: ListAvgAggregateOutputType | null
+    _sum: ListSumAggregateOutputType | null
+    _min: ListMinAggregateOutputType | null
+    _max: ListMaxAggregateOutputType | null
+  }
+
+  type GetListGroupByPayload<T extends ListGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ListGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ListGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ListGroupByOutputType[P]>
+            : GetScalarType<T[P], ListGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ListSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    order?: boolean
+    boardId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    cards?: boolean | List$cardsArgs<ExtArgs>
+    board?: boolean | BoardDefaultArgs<ExtArgs>
+    _count?: boolean | ListCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["list"]>
+
+  export type ListSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    order?: boolean
+    boardId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    board?: boolean | BoardDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["list"]>
+
+  export type ListSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    order?: boolean
+    boardId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    board?: boolean | BoardDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["list"]>
+
+  export type ListSelectScalar = {
+    id?: boolean
+    title?: boolean
+    order?: boolean
+    boardId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ListOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "order" | "boardId" | "createdAt" | "updatedAt", ExtArgs["result"]["list"]>
+  export type ListInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    cards?: boolean | List$cardsArgs<ExtArgs>
+    board?: boolean | BoardDefaultArgs<ExtArgs>
+    _count?: boolean | ListCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ListIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    board?: boolean | BoardDefaultArgs<ExtArgs>
+  }
+  export type ListIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    board?: boolean | BoardDefaultArgs<ExtArgs>
+  }
+
+  export type $ListPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "List"
+    objects: {
+      cards: Prisma.$CardPayload<ExtArgs>[]
+      board: Prisma.$BoardPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      order: number
+      boardId: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["list"]>
+    composites: {}
+  }
+
+  type ListGetPayload<S extends boolean | null | undefined | ListDefaultArgs> = $Result.GetResult<Prisma.$ListPayload, S>
+
+  type ListCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ListFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ListCountAggregateInputType | true
+    }
+
+  export interface ListDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['List'], meta: { name: 'List' } }
+    /**
+     * Find zero or one List that matches the filter.
+     * @param {ListFindUniqueArgs} args - Arguments to find a List
+     * @example
+     * // Get one List
+     * const list = await prisma.list.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ListFindUniqueArgs>(args: SelectSubset<T, ListFindUniqueArgs<ExtArgs>>): Prisma__ListClient<$Result.GetResult<Prisma.$ListPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one List that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ListFindUniqueOrThrowArgs} args - Arguments to find a List
+     * @example
+     * // Get one List
+     * const list = await prisma.list.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ListFindUniqueOrThrowArgs>(args: SelectSubset<T, ListFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ListClient<$Result.GetResult<Prisma.$ListPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first List that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ListFindFirstArgs} args - Arguments to find a List
+     * @example
+     * // Get one List
+     * const list = await prisma.list.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ListFindFirstArgs>(args?: SelectSubset<T, ListFindFirstArgs<ExtArgs>>): Prisma__ListClient<$Result.GetResult<Prisma.$ListPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first List that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ListFindFirstOrThrowArgs} args - Arguments to find a List
+     * @example
+     * // Get one List
+     * const list = await prisma.list.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ListFindFirstOrThrowArgs>(args?: SelectSubset<T, ListFindFirstOrThrowArgs<ExtArgs>>): Prisma__ListClient<$Result.GetResult<Prisma.$ListPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Lists that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ListFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Lists
+     * const lists = await prisma.list.findMany()
+     * 
+     * // Get first 10 Lists
+     * const lists = await prisma.list.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const listWithIdOnly = await prisma.list.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ListFindManyArgs>(args?: SelectSubset<T, ListFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ListPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a List.
+     * @param {ListCreateArgs} args - Arguments to create a List.
+     * @example
+     * // Create one List
+     * const List = await prisma.list.create({
+     *   data: {
+     *     // ... data to create a List
+     *   }
+     * })
+     * 
+     */
+    create<T extends ListCreateArgs>(args: SelectSubset<T, ListCreateArgs<ExtArgs>>): Prisma__ListClient<$Result.GetResult<Prisma.$ListPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Lists.
+     * @param {ListCreateManyArgs} args - Arguments to create many Lists.
+     * @example
+     * // Create many Lists
+     * const list = await prisma.list.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ListCreateManyArgs>(args?: SelectSubset<T, ListCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Lists and returns the data saved in the database.
+     * @param {ListCreateManyAndReturnArgs} args - Arguments to create many Lists.
+     * @example
+     * // Create many Lists
+     * const list = await prisma.list.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Lists and only return the `id`
+     * const listWithIdOnly = await prisma.list.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ListCreateManyAndReturnArgs>(args?: SelectSubset<T, ListCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ListPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a List.
+     * @param {ListDeleteArgs} args - Arguments to delete one List.
+     * @example
+     * // Delete one List
+     * const List = await prisma.list.delete({
+     *   where: {
+     *     // ... filter to delete one List
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ListDeleteArgs>(args: SelectSubset<T, ListDeleteArgs<ExtArgs>>): Prisma__ListClient<$Result.GetResult<Prisma.$ListPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one List.
+     * @param {ListUpdateArgs} args - Arguments to update one List.
+     * @example
+     * // Update one List
+     * const list = await prisma.list.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ListUpdateArgs>(args: SelectSubset<T, ListUpdateArgs<ExtArgs>>): Prisma__ListClient<$Result.GetResult<Prisma.$ListPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Lists.
+     * @param {ListDeleteManyArgs} args - Arguments to filter Lists to delete.
+     * @example
+     * // Delete a few Lists
+     * const { count } = await prisma.list.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ListDeleteManyArgs>(args?: SelectSubset<T, ListDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Lists.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ListUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Lists
+     * const list = await prisma.list.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ListUpdateManyArgs>(args: SelectSubset<T, ListUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Lists and returns the data updated in the database.
+     * @param {ListUpdateManyAndReturnArgs} args - Arguments to update many Lists.
+     * @example
+     * // Update many Lists
+     * const list = await prisma.list.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Lists and only return the `id`
+     * const listWithIdOnly = await prisma.list.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ListUpdateManyAndReturnArgs>(args: SelectSubset<T, ListUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ListPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one List.
+     * @param {ListUpsertArgs} args - Arguments to update or create a List.
+     * @example
+     * // Update or create a List
+     * const list = await prisma.list.upsert({
+     *   create: {
+     *     // ... data to create a List
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the List we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ListUpsertArgs>(args: SelectSubset<T, ListUpsertArgs<ExtArgs>>): Prisma__ListClient<$Result.GetResult<Prisma.$ListPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Lists.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ListCountArgs} args - Arguments to filter Lists to count.
+     * @example
+     * // Count the number of Lists
+     * const count = await prisma.list.count({
+     *   where: {
+     *     // ... the filter for the Lists we want to count
+     *   }
+     * })
+    **/
+    count<T extends ListCountArgs>(
+      args?: Subset<T, ListCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ListCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a List.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ListAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ListAggregateArgs>(args: Subset<T, ListAggregateArgs>): Prisma.PrismaPromise<GetListAggregateType<T>>
+
+    /**
+     * Group by List.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ListGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ListGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ListGroupByArgs['orderBy'] }
+        : { orderBy?: ListGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ListGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetListGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the List model
+   */
+  readonly fields: ListFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for List.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ListClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    cards<T extends List$cardsArgs<ExtArgs> = {}>(args?: Subset<T, List$cardsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CardPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    board<T extends BoardDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BoardDefaultArgs<ExtArgs>>): Prisma__BoardClient<$Result.GetResult<Prisma.$BoardPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the List model
+   */
+  interface ListFieldRefs {
+    readonly id: FieldRef<"List", 'String'>
+    readonly title: FieldRef<"List", 'String'>
+    readonly order: FieldRef<"List", 'Int'>
+    readonly boardId: FieldRef<"List", 'String'>
+    readonly createdAt: FieldRef<"List", 'DateTime'>
+    readonly updatedAt: FieldRef<"List", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * List findUnique
+   */
+  export type ListFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the List
+     */
+    select?: ListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the List
+     */
+    omit?: ListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ListInclude<ExtArgs> | null
+    /**
+     * Filter, which List to fetch.
+     */
+    where: ListWhereUniqueInput
+  }
+
+  /**
+   * List findUniqueOrThrow
+   */
+  export type ListFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the List
+     */
+    select?: ListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the List
+     */
+    omit?: ListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ListInclude<ExtArgs> | null
+    /**
+     * Filter, which List to fetch.
+     */
+    where: ListWhereUniqueInput
+  }
+
+  /**
+   * List findFirst
+   */
+  export type ListFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the List
+     */
+    select?: ListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the List
+     */
+    omit?: ListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ListInclude<ExtArgs> | null
+    /**
+     * Filter, which List to fetch.
+     */
+    where?: ListWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Lists to fetch.
+     */
+    orderBy?: ListOrderByWithRelationInput | ListOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Lists.
+     */
+    cursor?: ListWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Lists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Lists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Lists.
+     */
+    distinct?: ListScalarFieldEnum | ListScalarFieldEnum[]
+  }
+
+  /**
+   * List findFirstOrThrow
+   */
+  export type ListFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the List
+     */
+    select?: ListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the List
+     */
+    omit?: ListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ListInclude<ExtArgs> | null
+    /**
+     * Filter, which List to fetch.
+     */
+    where?: ListWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Lists to fetch.
+     */
+    orderBy?: ListOrderByWithRelationInput | ListOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Lists.
+     */
+    cursor?: ListWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Lists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Lists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Lists.
+     */
+    distinct?: ListScalarFieldEnum | ListScalarFieldEnum[]
+  }
+
+  /**
+   * List findMany
+   */
+  export type ListFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the List
+     */
+    select?: ListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the List
+     */
+    omit?: ListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ListInclude<ExtArgs> | null
+    /**
+     * Filter, which Lists to fetch.
+     */
+    where?: ListWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Lists to fetch.
+     */
+    orderBy?: ListOrderByWithRelationInput | ListOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Lists.
+     */
+    cursor?: ListWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Lists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Lists.
+     */
+    skip?: number
+    distinct?: ListScalarFieldEnum | ListScalarFieldEnum[]
+  }
+
+  /**
+   * List create
+   */
+  export type ListCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the List
+     */
+    select?: ListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the List
+     */
+    omit?: ListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ListInclude<ExtArgs> | null
+    /**
+     * The data needed to create a List.
+     */
+    data: XOR<ListCreateInput, ListUncheckedCreateInput>
+  }
+
+  /**
+   * List createMany
+   */
+  export type ListCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Lists.
+     */
+    data: ListCreateManyInput | ListCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * List createManyAndReturn
+   */
+  export type ListCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the List
+     */
+    select?: ListSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the List
+     */
+    omit?: ListOmit<ExtArgs> | null
+    /**
+     * The data used to create many Lists.
+     */
+    data: ListCreateManyInput | ListCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ListIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * List update
+   */
+  export type ListUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the List
+     */
+    select?: ListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the List
+     */
+    omit?: ListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ListInclude<ExtArgs> | null
+    /**
+     * The data needed to update a List.
+     */
+    data: XOR<ListUpdateInput, ListUncheckedUpdateInput>
+    /**
+     * Choose, which List to update.
+     */
+    where: ListWhereUniqueInput
+  }
+
+  /**
+   * List updateMany
+   */
+  export type ListUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Lists.
+     */
+    data: XOR<ListUpdateManyMutationInput, ListUncheckedUpdateManyInput>
+    /**
+     * Filter which Lists to update
+     */
+    where?: ListWhereInput
+    /**
+     * Limit how many Lists to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * List updateManyAndReturn
+   */
+  export type ListUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the List
+     */
+    select?: ListSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the List
+     */
+    omit?: ListOmit<ExtArgs> | null
+    /**
+     * The data used to update Lists.
+     */
+    data: XOR<ListUpdateManyMutationInput, ListUncheckedUpdateManyInput>
+    /**
+     * Filter which Lists to update
+     */
+    where?: ListWhereInput
+    /**
+     * Limit how many Lists to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ListIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * List upsert
+   */
+  export type ListUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the List
+     */
+    select?: ListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the List
+     */
+    omit?: ListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ListInclude<ExtArgs> | null
+    /**
+     * The filter to search for the List to update in case it exists.
+     */
+    where: ListWhereUniqueInput
+    /**
+     * In case the List found by the `where` argument doesn't exist, create a new List with this data.
+     */
+    create: XOR<ListCreateInput, ListUncheckedCreateInput>
+    /**
+     * In case the List was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ListUpdateInput, ListUncheckedUpdateInput>
+  }
+
+  /**
+   * List delete
+   */
+  export type ListDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the List
+     */
+    select?: ListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the List
+     */
+    omit?: ListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ListInclude<ExtArgs> | null
+    /**
+     * Filter which List to delete.
+     */
+    where: ListWhereUniqueInput
+  }
+
+  /**
+   * List deleteMany
+   */
+  export type ListDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Lists to delete
+     */
+    where?: ListWhereInput
+    /**
+     * Limit how many Lists to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * List.cards
+   */
+  export type List$cardsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Card
+     */
+    select?: CardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Card
+     */
+    omit?: CardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CardInclude<ExtArgs> | null
+    where?: CardWhereInput
+    orderBy?: CardOrderByWithRelationInput | CardOrderByWithRelationInput[]
+    cursor?: CardWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CardScalarFieldEnum | CardScalarFieldEnum[]
+  }
+
+  /**
+   * List without action
+   */
+  export type ListDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the List
+     */
+    select?: ListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the List
+     */
+    omit?: ListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ListInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Card
+   */
+
+  export type AggregateCard = {
+    _count: CardCountAggregateOutputType | null
+    _avg: CardAvgAggregateOutputType | null
+    _sum: CardSumAggregateOutputType | null
+    _min: CardMinAggregateOutputType | null
+    _max: CardMaxAggregateOutputType | null
+  }
+
+  export type CardAvgAggregateOutputType = {
+    order: number | null
+  }
+
+  export type CardSumAggregateOutputType = {
+    order: number | null
+  }
+
+  export type CardMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    order: number | null
+    description: string | null
+    status: $Enums.STATUS | null
+    listId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CardMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    order: number | null
+    description: string | null
+    status: $Enums.STATUS | null
+    listId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CardCountAggregateOutputType = {
+    id: number
+    title: number
+    order: number
+    description: number
+    status: number
+    listId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type CardAvgAggregateInputType = {
+    order?: true
+  }
+
+  export type CardSumAggregateInputType = {
+    order?: true
+  }
+
+  export type CardMinAggregateInputType = {
+    id?: true
+    title?: true
+    order?: true
+    description?: true
+    status?: true
+    listId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CardMaxAggregateInputType = {
+    id?: true
+    title?: true
+    order?: true
+    description?: true
+    status?: true
+    listId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CardCountAggregateInputType = {
+    id?: true
+    title?: true
+    order?: true
+    description?: true
+    status?: true
+    listId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type CardAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Card to aggregate.
+     */
+    where?: CardWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Cards to fetch.
+     */
+    orderBy?: CardOrderByWithRelationInput | CardOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CardWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Cards from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Cards.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Cards
+    **/
+    _count?: true | CardCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CardAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CardSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CardMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CardMaxAggregateInputType
+  }
+
+  export type GetCardAggregateType<T extends CardAggregateArgs> = {
+        [P in keyof T & keyof AggregateCard]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCard[P]>
+      : GetScalarType<T[P], AggregateCard[P]>
+  }
+
+
+
+
+  export type CardGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CardWhereInput
+    orderBy?: CardOrderByWithAggregationInput | CardOrderByWithAggregationInput[]
+    by: CardScalarFieldEnum[] | CardScalarFieldEnum
+    having?: CardScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CardCountAggregateInputType | true
+    _avg?: CardAvgAggregateInputType
+    _sum?: CardSumAggregateInputType
+    _min?: CardMinAggregateInputType
+    _max?: CardMaxAggregateInputType
+  }
+
+  export type CardGroupByOutputType = {
+    id: string
+    title: string
+    order: number
+    description: string | null
+    status: $Enums.STATUS
+    listId: string
+    createdAt: Date
+    updatedAt: Date
+    _count: CardCountAggregateOutputType | null
+    _avg: CardAvgAggregateOutputType | null
+    _sum: CardSumAggregateOutputType | null
+    _min: CardMinAggregateOutputType | null
+    _max: CardMaxAggregateOutputType | null
+  }
+
+  type GetCardGroupByPayload<T extends CardGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CardGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CardGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CardGroupByOutputType[P]>
+            : GetScalarType<T[P], CardGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CardSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    order?: boolean
+    description?: boolean
+    status?: boolean
+    listId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    list?: boolean | ListDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["card"]>
+
+  export type CardSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    order?: boolean
+    description?: boolean
+    status?: boolean
+    listId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    list?: boolean | ListDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["card"]>
+
+  export type CardSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    order?: boolean
+    description?: boolean
+    status?: boolean
+    listId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    list?: boolean | ListDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["card"]>
+
+  export type CardSelectScalar = {
+    id?: boolean
+    title?: boolean
+    order?: boolean
+    description?: boolean
+    status?: boolean
+    listId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type CardOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "order" | "description" | "status" | "listId" | "createdAt" | "updatedAt", ExtArgs["result"]["card"]>
+  export type CardInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    list?: boolean | ListDefaultArgs<ExtArgs>
+  }
+  export type CardIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    list?: boolean | ListDefaultArgs<ExtArgs>
+  }
+  export type CardIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    list?: boolean | ListDefaultArgs<ExtArgs>
+  }
+
+  export type $CardPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Card"
+    objects: {
+      list: Prisma.$ListPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      order: number
+      description: string | null
+      status: $Enums.STATUS
+      listId: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["card"]>
+    composites: {}
+  }
+
+  type CardGetPayload<S extends boolean | null | undefined | CardDefaultArgs> = $Result.GetResult<Prisma.$CardPayload, S>
+
+  type CardCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CardFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CardCountAggregateInputType | true
+    }
+
+  export interface CardDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Card'], meta: { name: 'Card' } }
+    /**
+     * Find zero or one Card that matches the filter.
+     * @param {CardFindUniqueArgs} args - Arguments to find a Card
+     * @example
+     * // Get one Card
+     * const card = await prisma.card.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CardFindUniqueArgs>(args: SelectSubset<T, CardFindUniqueArgs<ExtArgs>>): Prisma__CardClient<$Result.GetResult<Prisma.$CardPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Card that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CardFindUniqueOrThrowArgs} args - Arguments to find a Card
+     * @example
+     * // Get one Card
+     * const card = await prisma.card.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CardFindUniqueOrThrowArgs>(args: SelectSubset<T, CardFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CardClient<$Result.GetResult<Prisma.$CardPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Card that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CardFindFirstArgs} args - Arguments to find a Card
+     * @example
+     * // Get one Card
+     * const card = await prisma.card.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CardFindFirstArgs>(args?: SelectSubset<T, CardFindFirstArgs<ExtArgs>>): Prisma__CardClient<$Result.GetResult<Prisma.$CardPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Card that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CardFindFirstOrThrowArgs} args - Arguments to find a Card
+     * @example
+     * // Get one Card
+     * const card = await prisma.card.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CardFindFirstOrThrowArgs>(args?: SelectSubset<T, CardFindFirstOrThrowArgs<ExtArgs>>): Prisma__CardClient<$Result.GetResult<Prisma.$CardPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Cards that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CardFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Cards
+     * const cards = await prisma.card.findMany()
+     * 
+     * // Get first 10 Cards
+     * const cards = await prisma.card.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const cardWithIdOnly = await prisma.card.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CardFindManyArgs>(args?: SelectSubset<T, CardFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CardPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Card.
+     * @param {CardCreateArgs} args - Arguments to create a Card.
+     * @example
+     * // Create one Card
+     * const Card = await prisma.card.create({
+     *   data: {
+     *     // ... data to create a Card
+     *   }
+     * })
+     * 
+     */
+    create<T extends CardCreateArgs>(args: SelectSubset<T, CardCreateArgs<ExtArgs>>): Prisma__CardClient<$Result.GetResult<Prisma.$CardPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Cards.
+     * @param {CardCreateManyArgs} args - Arguments to create many Cards.
+     * @example
+     * // Create many Cards
+     * const card = await prisma.card.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CardCreateManyArgs>(args?: SelectSubset<T, CardCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Cards and returns the data saved in the database.
+     * @param {CardCreateManyAndReturnArgs} args - Arguments to create many Cards.
+     * @example
+     * // Create many Cards
+     * const card = await prisma.card.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Cards and only return the `id`
+     * const cardWithIdOnly = await prisma.card.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CardCreateManyAndReturnArgs>(args?: SelectSubset<T, CardCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CardPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Card.
+     * @param {CardDeleteArgs} args - Arguments to delete one Card.
+     * @example
+     * // Delete one Card
+     * const Card = await prisma.card.delete({
+     *   where: {
+     *     // ... filter to delete one Card
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CardDeleteArgs>(args: SelectSubset<T, CardDeleteArgs<ExtArgs>>): Prisma__CardClient<$Result.GetResult<Prisma.$CardPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Card.
+     * @param {CardUpdateArgs} args - Arguments to update one Card.
+     * @example
+     * // Update one Card
+     * const card = await prisma.card.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CardUpdateArgs>(args: SelectSubset<T, CardUpdateArgs<ExtArgs>>): Prisma__CardClient<$Result.GetResult<Prisma.$CardPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Cards.
+     * @param {CardDeleteManyArgs} args - Arguments to filter Cards to delete.
+     * @example
+     * // Delete a few Cards
+     * const { count } = await prisma.card.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CardDeleteManyArgs>(args?: SelectSubset<T, CardDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Cards.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CardUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Cards
+     * const card = await prisma.card.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CardUpdateManyArgs>(args: SelectSubset<T, CardUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Cards and returns the data updated in the database.
+     * @param {CardUpdateManyAndReturnArgs} args - Arguments to update many Cards.
+     * @example
+     * // Update many Cards
+     * const card = await prisma.card.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Cards and only return the `id`
+     * const cardWithIdOnly = await prisma.card.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CardUpdateManyAndReturnArgs>(args: SelectSubset<T, CardUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CardPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Card.
+     * @param {CardUpsertArgs} args - Arguments to update or create a Card.
+     * @example
+     * // Update or create a Card
+     * const card = await prisma.card.upsert({
+     *   create: {
+     *     // ... data to create a Card
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Card we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CardUpsertArgs>(args: SelectSubset<T, CardUpsertArgs<ExtArgs>>): Prisma__CardClient<$Result.GetResult<Prisma.$CardPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Cards.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CardCountArgs} args - Arguments to filter Cards to count.
+     * @example
+     * // Count the number of Cards
+     * const count = await prisma.card.count({
+     *   where: {
+     *     // ... the filter for the Cards we want to count
+     *   }
+     * })
+    **/
+    count<T extends CardCountArgs>(
+      args?: Subset<T, CardCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CardCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Card.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CardAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CardAggregateArgs>(args: Subset<T, CardAggregateArgs>): Prisma.PrismaPromise<GetCardAggregateType<T>>
+
+    /**
+     * Group by Card.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CardGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CardGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CardGroupByArgs['orderBy'] }
+        : { orderBy?: CardGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CardGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCardGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Card model
+   */
+  readonly fields: CardFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Card.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CardClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    list<T extends ListDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ListDefaultArgs<ExtArgs>>): Prisma__ListClient<$Result.GetResult<Prisma.$ListPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Card model
+   */
+  interface CardFieldRefs {
+    readonly id: FieldRef<"Card", 'String'>
+    readonly title: FieldRef<"Card", 'String'>
+    readonly order: FieldRef<"Card", 'Int'>
+    readonly description: FieldRef<"Card", 'String'>
+    readonly status: FieldRef<"Card", 'STATUS'>
+    readonly listId: FieldRef<"Card", 'String'>
+    readonly createdAt: FieldRef<"Card", 'DateTime'>
+    readonly updatedAt: FieldRef<"Card", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Card findUnique
+   */
+  export type CardFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Card
+     */
+    select?: CardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Card
+     */
+    omit?: CardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CardInclude<ExtArgs> | null
+    /**
+     * Filter, which Card to fetch.
+     */
+    where: CardWhereUniqueInput
+  }
+
+  /**
+   * Card findUniqueOrThrow
+   */
+  export type CardFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Card
+     */
+    select?: CardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Card
+     */
+    omit?: CardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CardInclude<ExtArgs> | null
+    /**
+     * Filter, which Card to fetch.
+     */
+    where: CardWhereUniqueInput
+  }
+
+  /**
+   * Card findFirst
+   */
+  export type CardFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Card
+     */
+    select?: CardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Card
+     */
+    omit?: CardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CardInclude<ExtArgs> | null
+    /**
+     * Filter, which Card to fetch.
+     */
+    where?: CardWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Cards to fetch.
+     */
+    orderBy?: CardOrderByWithRelationInput | CardOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Cards.
+     */
+    cursor?: CardWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Cards from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Cards.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Cards.
+     */
+    distinct?: CardScalarFieldEnum | CardScalarFieldEnum[]
+  }
+
+  /**
+   * Card findFirstOrThrow
+   */
+  export type CardFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Card
+     */
+    select?: CardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Card
+     */
+    omit?: CardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CardInclude<ExtArgs> | null
+    /**
+     * Filter, which Card to fetch.
+     */
+    where?: CardWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Cards to fetch.
+     */
+    orderBy?: CardOrderByWithRelationInput | CardOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Cards.
+     */
+    cursor?: CardWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Cards from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Cards.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Cards.
+     */
+    distinct?: CardScalarFieldEnum | CardScalarFieldEnum[]
+  }
+
+  /**
+   * Card findMany
+   */
+  export type CardFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Card
+     */
+    select?: CardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Card
+     */
+    omit?: CardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CardInclude<ExtArgs> | null
+    /**
+     * Filter, which Cards to fetch.
+     */
+    where?: CardWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Cards to fetch.
+     */
+    orderBy?: CardOrderByWithRelationInput | CardOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Cards.
+     */
+    cursor?: CardWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Cards from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Cards.
+     */
+    skip?: number
+    distinct?: CardScalarFieldEnum | CardScalarFieldEnum[]
+  }
+
+  /**
+   * Card create
+   */
+  export type CardCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Card
+     */
+    select?: CardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Card
+     */
+    omit?: CardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CardInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Card.
+     */
+    data: XOR<CardCreateInput, CardUncheckedCreateInput>
+  }
+
+  /**
+   * Card createMany
+   */
+  export type CardCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Cards.
+     */
+    data: CardCreateManyInput | CardCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Card createManyAndReturn
+   */
+  export type CardCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Card
+     */
+    select?: CardSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Card
+     */
+    omit?: CardOmit<ExtArgs> | null
+    /**
+     * The data used to create many Cards.
+     */
+    data: CardCreateManyInput | CardCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CardIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Card update
+   */
+  export type CardUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Card
+     */
+    select?: CardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Card
+     */
+    omit?: CardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CardInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Card.
+     */
+    data: XOR<CardUpdateInput, CardUncheckedUpdateInput>
+    /**
+     * Choose, which Card to update.
+     */
+    where: CardWhereUniqueInput
+  }
+
+  /**
+   * Card updateMany
+   */
+  export type CardUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Cards.
+     */
+    data: XOR<CardUpdateManyMutationInput, CardUncheckedUpdateManyInput>
+    /**
+     * Filter which Cards to update
+     */
+    where?: CardWhereInput
+    /**
+     * Limit how many Cards to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Card updateManyAndReturn
+   */
+  export type CardUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Card
+     */
+    select?: CardSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Card
+     */
+    omit?: CardOmit<ExtArgs> | null
+    /**
+     * The data used to update Cards.
+     */
+    data: XOR<CardUpdateManyMutationInput, CardUncheckedUpdateManyInput>
+    /**
+     * Filter which Cards to update
+     */
+    where?: CardWhereInput
+    /**
+     * Limit how many Cards to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CardIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Card upsert
+   */
+  export type CardUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Card
+     */
+    select?: CardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Card
+     */
+    omit?: CardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CardInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Card to update in case it exists.
+     */
+    where: CardWhereUniqueInput
+    /**
+     * In case the Card found by the `where` argument doesn't exist, create a new Card with this data.
+     */
+    create: XOR<CardCreateInput, CardUncheckedCreateInput>
+    /**
+     * In case the Card was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CardUpdateInput, CardUncheckedUpdateInput>
+  }
+
+  /**
+   * Card delete
+   */
+  export type CardDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Card
+     */
+    select?: CardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Card
+     */
+    omit?: CardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CardInclude<ExtArgs> | null
+    /**
+     * Filter which Card to delete.
+     */
+    where: CardWhereUniqueInput
+  }
+
+  /**
+   * Card deleteMany
+   */
+  export type CardDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Cards to delete
+     */
+    where?: CardWhereInput
+    /**
+     * Limit how many Cards to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Card without action
+   */
+  export type CardDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Card
+     */
+    select?: CardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Card
+     */
+    omit?: CardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CardInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AuditLog
+   */
+
+  export type AggregateAuditLog = {
+    _count: AuditLogCountAggregateOutputType | null
+    _min: AuditLogMinAggregateOutputType | null
+    _max: AuditLogMaxAggregateOutputType | null
+  }
+
+  export type AuditLogMinAggregateOutputType = {
+    id: string | null
+    orgId: string | null
+    action: $Enums.ACTION | null
+    entityId: string | null
+    entityType: $Enums.ENTITY_TYPE | null
+    entityTitle: string | null
+    userId: string | null
+    userImage: string | null
+    userName: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AuditLogMaxAggregateOutputType = {
+    id: string | null
+    orgId: string | null
+    action: $Enums.ACTION | null
+    entityId: string | null
+    entityType: $Enums.ENTITY_TYPE | null
+    entityTitle: string | null
+    userId: string | null
+    userImage: string | null
+    userName: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AuditLogCountAggregateOutputType = {
+    id: number
+    orgId: number
+    action: number
+    entityId: number
+    entityType: number
+    entityTitle: number
+    userId: number
+    userImage: number
+    userName: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type AuditLogMinAggregateInputType = {
+    id?: true
+    orgId?: true
+    action?: true
+    entityId?: true
+    entityType?: true
+    entityTitle?: true
+    userId?: true
+    userImage?: true
+    userName?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AuditLogMaxAggregateInputType = {
+    id?: true
+    orgId?: true
+    action?: true
+    entityId?: true
+    entityType?: true
+    entityTitle?: true
+    userId?: true
+    userImage?: true
+    userName?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AuditLogCountAggregateInputType = {
+    id?: true
+    orgId?: true
+    action?: true
+    entityId?: true
+    entityType?: true
+    entityTitle?: true
+    userId?: true
+    userImage?: true
+    userName?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type AuditLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AuditLog to aggregate.
+     */
+    where?: AuditLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuditLogs to fetch.
+     */
+    orderBy?: AuditLogOrderByWithRelationInput | AuditLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AuditLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuditLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuditLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AuditLogs
+    **/
+    _count?: true | AuditLogCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AuditLogMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AuditLogMaxAggregateInputType
+  }
+
+  export type GetAuditLogAggregateType<T extends AuditLogAggregateArgs> = {
+        [P in keyof T & keyof AggregateAuditLog]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAuditLog[P]>
+      : GetScalarType<T[P], AggregateAuditLog[P]>
+  }
+
+
+
+
+  export type AuditLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AuditLogWhereInput
+    orderBy?: AuditLogOrderByWithAggregationInput | AuditLogOrderByWithAggregationInput[]
+    by: AuditLogScalarFieldEnum[] | AuditLogScalarFieldEnum
+    having?: AuditLogScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AuditLogCountAggregateInputType | true
+    _min?: AuditLogMinAggregateInputType
+    _max?: AuditLogMaxAggregateInputType
+  }
+
+  export type AuditLogGroupByOutputType = {
+    id: string
+    orgId: string
+    action: $Enums.ACTION
+    entityId: string
+    entityType: $Enums.ENTITY_TYPE
+    entityTitle: string
+    userId: string
+    userImage: string
+    userName: string
+    createdAt: Date
+    updatedAt: Date
+    _count: AuditLogCountAggregateOutputType | null
+    _min: AuditLogMinAggregateOutputType | null
+    _max: AuditLogMaxAggregateOutputType | null
+  }
+
+  type GetAuditLogGroupByPayload<T extends AuditLogGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AuditLogGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AuditLogGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AuditLogGroupByOutputType[P]>
+            : GetScalarType<T[P], AuditLogGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AuditLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    orgId?: boolean
+    action?: boolean
+    entityId?: boolean
+    entityType?: boolean
+    entityTitle?: boolean
+    userId?: boolean
+    userImage?: boolean
+    userName?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["auditLog"]>
+
+  export type AuditLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    orgId?: boolean
+    action?: boolean
+    entityId?: boolean
+    entityType?: boolean
+    entityTitle?: boolean
+    userId?: boolean
+    userImage?: boolean
+    userName?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["auditLog"]>
+
+  export type AuditLogSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    orgId?: boolean
+    action?: boolean
+    entityId?: boolean
+    entityType?: boolean
+    entityTitle?: boolean
+    userId?: boolean
+    userImage?: boolean
+    userName?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["auditLog"]>
+
+  export type AuditLogSelectScalar = {
+    id?: boolean
+    orgId?: boolean
+    action?: boolean
+    entityId?: boolean
+    entityType?: boolean
+    entityTitle?: boolean
+    userId?: boolean
+    userImage?: boolean
+    userName?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type AuditLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "orgId" | "action" | "entityId" | "entityType" | "entityTitle" | "userId" | "userImage" | "userName" | "createdAt" | "updatedAt", ExtArgs["result"]["auditLog"]>
+
+  export type $AuditLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AuditLog"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      orgId: string
+      action: $Enums.ACTION
+      entityId: string
+      entityType: $Enums.ENTITY_TYPE
+      entityTitle: string
+      userId: string
+      userImage: string
+      userName: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["auditLog"]>
+    composites: {}
+  }
+
+  type AuditLogGetPayload<S extends boolean | null | undefined | AuditLogDefaultArgs> = $Result.GetResult<Prisma.$AuditLogPayload, S>
+
+  type AuditLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AuditLogFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AuditLogCountAggregateInputType | true
+    }
+
+  export interface AuditLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AuditLog'], meta: { name: 'AuditLog' } }
+    /**
+     * Find zero or one AuditLog that matches the filter.
+     * @param {AuditLogFindUniqueArgs} args - Arguments to find a AuditLog
+     * @example
+     * // Get one AuditLog
+     * const auditLog = await prisma.auditLog.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AuditLogFindUniqueArgs>(args: SelectSubset<T, AuditLogFindUniqueArgs<ExtArgs>>): Prisma__AuditLogClient<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AuditLog that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AuditLogFindUniqueOrThrowArgs} args - Arguments to find a AuditLog
+     * @example
+     * // Get one AuditLog
+     * const auditLog = await prisma.auditLog.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AuditLogFindUniqueOrThrowArgs>(args: SelectSubset<T, AuditLogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AuditLogClient<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AuditLog that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditLogFindFirstArgs} args - Arguments to find a AuditLog
+     * @example
+     * // Get one AuditLog
+     * const auditLog = await prisma.auditLog.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AuditLogFindFirstArgs>(args?: SelectSubset<T, AuditLogFindFirstArgs<ExtArgs>>): Prisma__AuditLogClient<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AuditLog that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditLogFindFirstOrThrowArgs} args - Arguments to find a AuditLog
+     * @example
+     * // Get one AuditLog
+     * const auditLog = await prisma.auditLog.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AuditLogFindFirstOrThrowArgs>(args?: SelectSubset<T, AuditLogFindFirstOrThrowArgs<ExtArgs>>): Prisma__AuditLogClient<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AuditLogs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditLogFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AuditLogs
+     * const auditLogs = await prisma.auditLog.findMany()
+     * 
+     * // Get first 10 AuditLogs
+     * const auditLogs = await prisma.auditLog.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const auditLogWithIdOnly = await prisma.auditLog.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AuditLogFindManyArgs>(args?: SelectSubset<T, AuditLogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AuditLog.
+     * @param {AuditLogCreateArgs} args - Arguments to create a AuditLog.
+     * @example
+     * // Create one AuditLog
+     * const AuditLog = await prisma.auditLog.create({
+     *   data: {
+     *     // ... data to create a AuditLog
+     *   }
+     * })
+     * 
+     */
+    create<T extends AuditLogCreateArgs>(args: SelectSubset<T, AuditLogCreateArgs<ExtArgs>>): Prisma__AuditLogClient<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AuditLogs.
+     * @param {AuditLogCreateManyArgs} args - Arguments to create many AuditLogs.
+     * @example
+     * // Create many AuditLogs
+     * const auditLog = await prisma.auditLog.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AuditLogCreateManyArgs>(args?: SelectSubset<T, AuditLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AuditLogs and returns the data saved in the database.
+     * @param {AuditLogCreateManyAndReturnArgs} args - Arguments to create many AuditLogs.
+     * @example
+     * // Create many AuditLogs
+     * const auditLog = await prisma.auditLog.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AuditLogs and only return the `id`
+     * const auditLogWithIdOnly = await prisma.auditLog.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AuditLogCreateManyAndReturnArgs>(args?: SelectSubset<T, AuditLogCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AuditLog.
+     * @param {AuditLogDeleteArgs} args - Arguments to delete one AuditLog.
+     * @example
+     * // Delete one AuditLog
+     * const AuditLog = await prisma.auditLog.delete({
+     *   where: {
+     *     // ... filter to delete one AuditLog
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AuditLogDeleteArgs>(args: SelectSubset<T, AuditLogDeleteArgs<ExtArgs>>): Prisma__AuditLogClient<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AuditLog.
+     * @param {AuditLogUpdateArgs} args - Arguments to update one AuditLog.
+     * @example
+     * // Update one AuditLog
+     * const auditLog = await prisma.auditLog.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AuditLogUpdateArgs>(args: SelectSubset<T, AuditLogUpdateArgs<ExtArgs>>): Prisma__AuditLogClient<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AuditLogs.
+     * @param {AuditLogDeleteManyArgs} args - Arguments to filter AuditLogs to delete.
+     * @example
+     * // Delete a few AuditLogs
+     * const { count } = await prisma.auditLog.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AuditLogDeleteManyArgs>(args?: SelectSubset<T, AuditLogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AuditLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditLogUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AuditLogs
+     * const auditLog = await prisma.auditLog.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AuditLogUpdateManyArgs>(args: SelectSubset<T, AuditLogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AuditLogs and returns the data updated in the database.
+     * @param {AuditLogUpdateManyAndReturnArgs} args - Arguments to update many AuditLogs.
+     * @example
+     * // Update many AuditLogs
+     * const auditLog = await prisma.auditLog.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AuditLogs and only return the `id`
+     * const auditLogWithIdOnly = await prisma.auditLog.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AuditLogUpdateManyAndReturnArgs>(args: SelectSubset<T, AuditLogUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AuditLog.
+     * @param {AuditLogUpsertArgs} args - Arguments to update or create a AuditLog.
+     * @example
+     * // Update or create a AuditLog
+     * const auditLog = await prisma.auditLog.upsert({
+     *   create: {
+     *     // ... data to create a AuditLog
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AuditLog we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AuditLogUpsertArgs>(args: SelectSubset<T, AuditLogUpsertArgs<ExtArgs>>): Prisma__AuditLogClient<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AuditLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditLogCountArgs} args - Arguments to filter AuditLogs to count.
+     * @example
+     * // Count the number of AuditLogs
+     * const count = await prisma.auditLog.count({
+     *   where: {
+     *     // ... the filter for the AuditLogs we want to count
+     *   }
+     * })
+    **/
+    count<T extends AuditLogCountArgs>(
+      args?: Subset<T, AuditLogCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AuditLogCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AuditLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AuditLogAggregateArgs>(args: Subset<T, AuditLogAggregateArgs>): Prisma.PrismaPromise<GetAuditLogAggregateType<T>>
+
+    /**
+     * Group by AuditLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditLogGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AuditLogGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AuditLogGroupByArgs['orderBy'] }
+        : { orderBy?: AuditLogGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AuditLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAuditLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AuditLog model
+   */
+  readonly fields: AuditLogFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AuditLog.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AuditLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AuditLog model
+   */
+  interface AuditLogFieldRefs {
+    readonly id: FieldRef<"AuditLog", 'String'>
+    readonly orgId: FieldRef<"AuditLog", 'String'>
+    readonly action: FieldRef<"AuditLog", 'ACTION'>
+    readonly entityId: FieldRef<"AuditLog", 'String'>
+    readonly entityType: FieldRef<"AuditLog", 'ENTITY_TYPE'>
+    readonly entityTitle: FieldRef<"AuditLog", 'String'>
+    readonly userId: FieldRef<"AuditLog", 'String'>
+    readonly userImage: FieldRef<"AuditLog", 'String'>
+    readonly userName: FieldRef<"AuditLog", 'String'>
+    readonly createdAt: FieldRef<"AuditLog", 'DateTime'>
+    readonly updatedAt: FieldRef<"AuditLog", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AuditLog findUnique
+   */
+  export type AuditLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLog
+     */
+    omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * Filter, which AuditLog to fetch.
+     */
+    where: AuditLogWhereUniqueInput
+  }
+
+  /**
+   * AuditLog findUniqueOrThrow
+   */
+  export type AuditLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLog
+     */
+    omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * Filter, which AuditLog to fetch.
+     */
+    where: AuditLogWhereUniqueInput
+  }
+
+  /**
+   * AuditLog findFirst
+   */
+  export type AuditLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLog
+     */
+    omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * Filter, which AuditLog to fetch.
+     */
+    where?: AuditLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuditLogs to fetch.
+     */
+    orderBy?: AuditLogOrderByWithRelationInput | AuditLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AuditLogs.
+     */
+    cursor?: AuditLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuditLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuditLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AuditLogs.
+     */
+    distinct?: AuditLogScalarFieldEnum | AuditLogScalarFieldEnum[]
+  }
+
+  /**
+   * AuditLog findFirstOrThrow
+   */
+  export type AuditLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLog
+     */
+    omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * Filter, which AuditLog to fetch.
+     */
+    where?: AuditLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuditLogs to fetch.
+     */
+    orderBy?: AuditLogOrderByWithRelationInput | AuditLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AuditLogs.
+     */
+    cursor?: AuditLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuditLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuditLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AuditLogs.
+     */
+    distinct?: AuditLogScalarFieldEnum | AuditLogScalarFieldEnum[]
+  }
+
+  /**
+   * AuditLog findMany
+   */
+  export type AuditLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLog
+     */
+    omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * Filter, which AuditLogs to fetch.
+     */
+    where?: AuditLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuditLogs to fetch.
+     */
+    orderBy?: AuditLogOrderByWithRelationInput | AuditLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AuditLogs.
+     */
+    cursor?: AuditLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuditLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuditLogs.
+     */
+    skip?: number
+    distinct?: AuditLogScalarFieldEnum | AuditLogScalarFieldEnum[]
+  }
+
+  /**
+   * AuditLog create
+   */
+  export type AuditLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLog
+     */
+    omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * The data needed to create a AuditLog.
+     */
+    data: XOR<AuditLogCreateInput, AuditLogUncheckedCreateInput>
+  }
+
+  /**
+   * AuditLog createMany
+   */
+  export type AuditLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AuditLogs.
+     */
+    data: AuditLogCreateManyInput | AuditLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AuditLog createManyAndReturn
+   */
+  export type AuditLogCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLog
+     */
+    omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * The data used to create many AuditLogs.
+     */
+    data: AuditLogCreateManyInput | AuditLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AuditLog update
+   */
+  export type AuditLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLog
+     */
+    omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * The data needed to update a AuditLog.
+     */
+    data: XOR<AuditLogUpdateInput, AuditLogUncheckedUpdateInput>
+    /**
+     * Choose, which AuditLog to update.
+     */
+    where: AuditLogWhereUniqueInput
+  }
+
+  /**
+   * AuditLog updateMany
+   */
+  export type AuditLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AuditLogs.
+     */
+    data: XOR<AuditLogUpdateManyMutationInput, AuditLogUncheckedUpdateManyInput>
+    /**
+     * Filter which AuditLogs to update
+     */
+    where?: AuditLogWhereInput
+    /**
+     * Limit how many AuditLogs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AuditLog updateManyAndReturn
+   */
+  export type AuditLogUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLog
+     */
+    omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * The data used to update AuditLogs.
+     */
+    data: XOR<AuditLogUpdateManyMutationInput, AuditLogUncheckedUpdateManyInput>
+    /**
+     * Filter which AuditLogs to update
+     */
+    where?: AuditLogWhereInput
+    /**
+     * Limit how many AuditLogs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AuditLog upsert
+   */
+  export type AuditLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLog
+     */
+    omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * The filter to search for the AuditLog to update in case it exists.
+     */
+    where: AuditLogWhereUniqueInput
+    /**
+     * In case the AuditLog found by the `where` argument doesn't exist, create a new AuditLog with this data.
+     */
+    create: XOR<AuditLogCreateInput, AuditLogUncheckedCreateInput>
+    /**
+     * In case the AuditLog was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AuditLogUpdateInput, AuditLogUncheckedUpdateInput>
+  }
+
+  /**
+   * AuditLog delete
+   */
+  export type AuditLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLog
+     */
+    omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * Filter which AuditLog to delete.
+     */
+    where: AuditLogWhereUniqueInput
+  }
+
+  /**
+   * AuditLog deleteMany
+   */
+  export type AuditLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AuditLogs to delete
+     */
+    where?: AuditLogWhereInput
+    /**
+     * Limit how many AuditLogs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AuditLog without action
+   */
+  export type AuditLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLog
+     */
+    omit?: AuditLogOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -6935,6 +11916,64 @@ export namespace Prisma {
   export type OrganizationMembershipScalarFieldEnum = (typeof OrganizationMembershipScalarFieldEnum)[keyof typeof OrganizationMembershipScalarFieldEnum]
 
 
+  export const BoardScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    orgId: 'orgId',
+    imageId: 'imageId',
+    imageThumbUrl: 'imageThumbUrl',
+    imageFullUrl: 'imageFullUrl',
+    imageLinkHTML: 'imageLinkHTML',
+    imageUserName: 'imageUserName',
+    createdAt: 'createdAt'
+  };
+
+  export type BoardScalarFieldEnum = (typeof BoardScalarFieldEnum)[keyof typeof BoardScalarFieldEnum]
+
+
+  export const ListScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    order: 'order',
+    boardId: 'boardId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ListScalarFieldEnum = (typeof ListScalarFieldEnum)[keyof typeof ListScalarFieldEnum]
+
+
+  export const CardScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    order: 'order',
+    description: 'description',
+    status: 'status',
+    listId: 'listId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type CardScalarFieldEnum = (typeof CardScalarFieldEnum)[keyof typeof CardScalarFieldEnum]
+
+
+  export const AuditLogScalarFieldEnum: {
+    id: 'id',
+    orgId: 'orgId',
+    action: 'action',
+    entityId: 'entityId',
+    entityType: 'entityType',
+    entityTitle: 'entityTitle',
+    userId: 'userId',
+    userImage: 'userImage',
+    userName: 'userName',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type AuditLogScalarFieldEnum = (typeof AuditLogScalarFieldEnum)[keyof typeof AuditLogScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -6960,7 +11999,7 @@ export namespace Prisma {
 
 
   /**
-   * Field references 
+   * Field references
    */
 
 
@@ -7080,6 +12119,48 @@ export namespace Prisma {
    * Reference to a field of type 'OrganizationRole[]'
    */
   export type ListEnumOrganizationRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OrganizationRole[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'STATUS'
+   */
+  export type EnumSTATUSFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'STATUS'>
+    
+
+
+  /**
+   * Reference to a field of type 'STATUS[]'
+   */
+  export type ListEnumSTATUSFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'STATUS[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ACTION'
+   */
+  export type EnumACTIONFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ACTION'>
+    
+
+
+  /**
+   * Reference to a field of type 'ACTION[]'
+   */
+  export type ListEnumACTIONFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ACTION[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ENTITY_TYPE'
+   */
+  export type EnumENTITY_TYPEFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ENTITY_TYPE'>
+    
+
+
+  /**
+   * Reference to a field of type 'ENTITY_TYPE[]'
+   */
+  export type ListEnumENTITY_TYPEFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ENTITY_TYPE[]'>
     
 
 
@@ -7332,6 +12413,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Organization"> | Date | string
     updatedAt?: DateTimeFilter<"Organization"> | Date | string
     memberships?: OrganizationMembershipListRelationFilter
+    boards?: BoardListRelationFilter
   }
 
   export type OrganizationOrderByWithRelationInput = {
@@ -7341,6 +12423,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     memberships?: OrganizationMembershipOrderByRelationAggregateInput
+    boards?: BoardOrderByRelationAggregateInput
   }
 
   export type OrganizationWhereUniqueInput = Prisma.AtLeast<{
@@ -7353,6 +12436,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Organization"> | Date | string
     updatedAt?: DateTimeFilter<"Organization"> | Date | string
     memberships?: OrganizationMembershipListRelationFilter
+    boards?: BoardListRelationFilter
   }, "id">
 
   export type OrganizationOrderByWithAggregationInput = {
@@ -7438,6 +12522,303 @@ export namespace Prisma {
     role?: EnumOrganizationRoleWithAggregatesFilter<"OrganizationMembership"> | $Enums.OrganizationRole
     createdAt?: DateTimeWithAggregatesFilter<"OrganizationMembership"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"OrganizationMembership"> | Date | string
+  }
+
+  export type BoardWhereInput = {
+    AND?: BoardWhereInput | BoardWhereInput[]
+    OR?: BoardWhereInput[]
+    NOT?: BoardWhereInput | BoardWhereInput[]
+    id?: StringFilter<"Board"> | string
+    title?: StringFilter<"Board"> | string
+    orgId?: StringFilter<"Board"> | string
+    imageId?: StringFilter<"Board"> | string
+    imageThumbUrl?: StringFilter<"Board"> | string
+    imageFullUrl?: StringFilter<"Board"> | string
+    imageLinkHTML?: StringFilter<"Board"> | string
+    imageUserName?: StringFilter<"Board"> | string
+    createdAt?: DateTimeFilter<"Board"> | Date | string
+    organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
+    List?: ListListRelationFilter
+  }
+
+  export type BoardOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    orgId?: SortOrder
+    imageId?: SortOrder
+    imageThumbUrl?: SortOrder
+    imageFullUrl?: SortOrder
+    imageLinkHTML?: SortOrder
+    imageUserName?: SortOrder
+    createdAt?: SortOrder
+    organization?: OrganizationOrderByWithRelationInput
+    List?: ListOrderByRelationAggregateInput
+  }
+
+  export type BoardWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: BoardWhereInput | BoardWhereInput[]
+    OR?: BoardWhereInput[]
+    NOT?: BoardWhereInput | BoardWhereInput[]
+    title?: StringFilter<"Board"> | string
+    orgId?: StringFilter<"Board"> | string
+    imageId?: StringFilter<"Board"> | string
+    imageThumbUrl?: StringFilter<"Board"> | string
+    imageFullUrl?: StringFilter<"Board"> | string
+    imageLinkHTML?: StringFilter<"Board"> | string
+    imageUserName?: StringFilter<"Board"> | string
+    createdAt?: DateTimeFilter<"Board"> | Date | string
+    organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
+    List?: ListListRelationFilter
+  }, "id">
+
+  export type BoardOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    orgId?: SortOrder
+    imageId?: SortOrder
+    imageThumbUrl?: SortOrder
+    imageFullUrl?: SortOrder
+    imageLinkHTML?: SortOrder
+    imageUserName?: SortOrder
+    createdAt?: SortOrder
+    _count?: BoardCountOrderByAggregateInput
+    _max?: BoardMaxOrderByAggregateInput
+    _min?: BoardMinOrderByAggregateInput
+  }
+
+  export type BoardScalarWhereWithAggregatesInput = {
+    AND?: BoardScalarWhereWithAggregatesInput | BoardScalarWhereWithAggregatesInput[]
+    OR?: BoardScalarWhereWithAggregatesInput[]
+    NOT?: BoardScalarWhereWithAggregatesInput | BoardScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Board"> | string
+    title?: StringWithAggregatesFilter<"Board"> | string
+    orgId?: StringWithAggregatesFilter<"Board"> | string
+    imageId?: StringWithAggregatesFilter<"Board"> | string
+    imageThumbUrl?: StringWithAggregatesFilter<"Board"> | string
+    imageFullUrl?: StringWithAggregatesFilter<"Board"> | string
+    imageLinkHTML?: StringWithAggregatesFilter<"Board"> | string
+    imageUserName?: StringWithAggregatesFilter<"Board"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Board"> | Date | string
+  }
+
+  export type ListWhereInput = {
+    AND?: ListWhereInput | ListWhereInput[]
+    OR?: ListWhereInput[]
+    NOT?: ListWhereInput | ListWhereInput[]
+    id?: StringFilter<"List"> | string
+    title?: StringFilter<"List"> | string
+    order?: IntFilter<"List"> | number
+    boardId?: StringFilter<"List"> | string
+    createdAt?: DateTimeFilter<"List"> | Date | string
+    updatedAt?: DateTimeFilter<"List"> | Date | string
+    cards?: CardListRelationFilter
+    board?: XOR<BoardScalarRelationFilter, BoardWhereInput>
+  }
+
+  export type ListOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    order?: SortOrder
+    boardId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    cards?: CardOrderByRelationAggregateInput
+    board?: BoardOrderByWithRelationInput
+  }
+
+  export type ListWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ListWhereInput | ListWhereInput[]
+    OR?: ListWhereInput[]
+    NOT?: ListWhereInput | ListWhereInput[]
+    title?: StringFilter<"List"> | string
+    order?: IntFilter<"List"> | number
+    boardId?: StringFilter<"List"> | string
+    createdAt?: DateTimeFilter<"List"> | Date | string
+    updatedAt?: DateTimeFilter<"List"> | Date | string
+    cards?: CardListRelationFilter
+    board?: XOR<BoardScalarRelationFilter, BoardWhereInput>
+  }, "id">
+
+  export type ListOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    order?: SortOrder
+    boardId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ListCountOrderByAggregateInput
+    _avg?: ListAvgOrderByAggregateInput
+    _max?: ListMaxOrderByAggregateInput
+    _min?: ListMinOrderByAggregateInput
+    _sum?: ListSumOrderByAggregateInput
+  }
+
+  export type ListScalarWhereWithAggregatesInput = {
+    AND?: ListScalarWhereWithAggregatesInput | ListScalarWhereWithAggregatesInput[]
+    OR?: ListScalarWhereWithAggregatesInput[]
+    NOT?: ListScalarWhereWithAggregatesInput | ListScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"List"> | string
+    title?: StringWithAggregatesFilter<"List"> | string
+    order?: IntWithAggregatesFilter<"List"> | number
+    boardId?: StringWithAggregatesFilter<"List"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"List"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"List"> | Date | string
+  }
+
+  export type CardWhereInput = {
+    AND?: CardWhereInput | CardWhereInput[]
+    OR?: CardWhereInput[]
+    NOT?: CardWhereInput | CardWhereInput[]
+    id?: StringFilter<"Card"> | string
+    title?: StringFilter<"Card"> | string
+    order?: IntFilter<"Card"> | number
+    description?: StringNullableFilter<"Card"> | string | null
+    status?: EnumSTATUSFilter<"Card"> | $Enums.STATUS
+    listId?: StringFilter<"Card"> | string
+    createdAt?: DateTimeFilter<"Card"> | Date | string
+    updatedAt?: DateTimeFilter<"Card"> | Date | string
+    list?: XOR<ListScalarRelationFilter, ListWhereInput>
+  }
+
+  export type CardOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    order?: SortOrder
+    description?: SortOrderInput | SortOrder
+    status?: SortOrder
+    listId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    list?: ListOrderByWithRelationInput
+  }
+
+  export type CardWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: CardWhereInput | CardWhereInput[]
+    OR?: CardWhereInput[]
+    NOT?: CardWhereInput | CardWhereInput[]
+    title?: StringFilter<"Card"> | string
+    order?: IntFilter<"Card"> | number
+    description?: StringNullableFilter<"Card"> | string | null
+    status?: EnumSTATUSFilter<"Card"> | $Enums.STATUS
+    listId?: StringFilter<"Card"> | string
+    createdAt?: DateTimeFilter<"Card"> | Date | string
+    updatedAt?: DateTimeFilter<"Card"> | Date | string
+    list?: XOR<ListScalarRelationFilter, ListWhereInput>
+  }, "id">
+
+  export type CardOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    order?: SortOrder
+    description?: SortOrderInput | SortOrder
+    status?: SortOrder
+    listId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: CardCountOrderByAggregateInput
+    _avg?: CardAvgOrderByAggregateInput
+    _max?: CardMaxOrderByAggregateInput
+    _min?: CardMinOrderByAggregateInput
+    _sum?: CardSumOrderByAggregateInput
+  }
+
+  export type CardScalarWhereWithAggregatesInput = {
+    AND?: CardScalarWhereWithAggregatesInput | CardScalarWhereWithAggregatesInput[]
+    OR?: CardScalarWhereWithAggregatesInput[]
+    NOT?: CardScalarWhereWithAggregatesInput | CardScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Card"> | string
+    title?: StringWithAggregatesFilter<"Card"> | string
+    order?: IntWithAggregatesFilter<"Card"> | number
+    description?: StringNullableWithAggregatesFilter<"Card"> | string | null
+    status?: EnumSTATUSWithAggregatesFilter<"Card"> | $Enums.STATUS
+    listId?: StringWithAggregatesFilter<"Card"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Card"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Card"> | Date | string
+  }
+
+  export type AuditLogWhereInput = {
+    AND?: AuditLogWhereInput | AuditLogWhereInput[]
+    OR?: AuditLogWhereInput[]
+    NOT?: AuditLogWhereInput | AuditLogWhereInput[]
+    id?: StringFilter<"AuditLog"> | string
+    orgId?: StringFilter<"AuditLog"> | string
+    action?: EnumACTIONFilter<"AuditLog"> | $Enums.ACTION
+    entityId?: StringFilter<"AuditLog"> | string
+    entityType?: EnumENTITY_TYPEFilter<"AuditLog"> | $Enums.ENTITY_TYPE
+    entityTitle?: StringFilter<"AuditLog"> | string
+    userId?: StringFilter<"AuditLog"> | string
+    userImage?: StringFilter<"AuditLog"> | string
+    userName?: StringFilter<"AuditLog"> | string
+    createdAt?: DateTimeFilter<"AuditLog"> | Date | string
+    updatedAt?: DateTimeFilter<"AuditLog"> | Date | string
+  }
+
+  export type AuditLogOrderByWithRelationInput = {
+    id?: SortOrder
+    orgId?: SortOrder
+    action?: SortOrder
+    entityId?: SortOrder
+    entityType?: SortOrder
+    entityTitle?: SortOrder
+    userId?: SortOrder
+    userImage?: SortOrder
+    userName?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AuditLogWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AuditLogWhereInput | AuditLogWhereInput[]
+    OR?: AuditLogWhereInput[]
+    NOT?: AuditLogWhereInput | AuditLogWhereInput[]
+    orgId?: StringFilter<"AuditLog"> | string
+    action?: EnumACTIONFilter<"AuditLog"> | $Enums.ACTION
+    entityId?: StringFilter<"AuditLog"> | string
+    entityType?: EnumENTITY_TYPEFilter<"AuditLog"> | $Enums.ENTITY_TYPE
+    entityTitle?: StringFilter<"AuditLog"> | string
+    userId?: StringFilter<"AuditLog"> | string
+    userImage?: StringFilter<"AuditLog"> | string
+    userName?: StringFilter<"AuditLog"> | string
+    createdAt?: DateTimeFilter<"AuditLog"> | Date | string
+    updatedAt?: DateTimeFilter<"AuditLog"> | Date | string
+  }, "id">
+
+  export type AuditLogOrderByWithAggregationInput = {
+    id?: SortOrder
+    orgId?: SortOrder
+    action?: SortOrder
+    entityId?: SortOrder
+    entityType?: SortOrder
+    entityTitle?: SortOrder
+    userId?: SortOrder
+    userImage?: SortOrder
+    userName?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: AuditLogCountOrderByAggregateInput
+    _max?: AuditLogMaxOrderByAggregateInput
+    _min?: AuditLogMinOrderByAggregateInput
+  }
+
+  export type AuditLogScalarWhereWithAggregatesInput = {
+    AND?: AuditLogScalarWhereWithAggregatesInput | AuditLogScalarWhereWithAggregatesInput[]
+    OR?: AuditLogScalarWhereWithAggregatesInput[]
+    NOT?: AuditLogScalarWhereWithAggregatesInput | AuditLogScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AuditLog"> | string
+    orgId?: StringWithAggregatesFilter<"AuditLog"> | string
+    action?: EnumACTIONWithAggregatesFilter<"AuditLog"> | $Enums.ACTION
+    entityId?: StringWithAggregatesFilter<"AuditLog"> | string
+    entityType?: EnumENTITY_TYPEWithAggregatesFilter<"AuditLog"> | $Enums.ENTITY_TYPE
+    entityTitle?: StringWithAggregatesFilter<"AuditLog"> | string
+    userId?: StringWithAggregatesFilter<"AuditLog"> | string
+    userImage?: StringWithAggregatesFilter<"AuditLog"> | string
+    userName?: StringWithAggregatesFilter<"AuditLog"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"AuditLog"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"AuditLog"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -7699,6 +13080,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     memberships?: OrganizationMembershipCreateNestedManyWithoutOrganizationInput
+    boards?: BoardCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateInput = {
@@ -7708,6 +13090,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     memberships?: OrganizationMembershipUncheckedCreateNestedManyWithoutOrganizationInput
+    boards?: BoardUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUpdateInput = {
@@ -7717,6 +13100,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     memberships?: OrganizationMembershipUpdateManyWithoutOrganizationNestedInput
+    boards?: BoardUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateInput = {
@@ -7726,6 +13110,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     memberships?: OrganizationMembershipUncheckedUpdateManyWithoutOrganizationNestedInput
+    boards?: BoardUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationCreateManyInput = {
@@ -7809,6 +13194,333 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     organizationId?: StringFieldUpdateOperationsInput | string
     role?: EnumOrganizationRoleFieldUpdateOperationsInput | $Enums.OrganizationRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BoardCreateInput = {
+    id?: string
+    title: string
+    imageId: string
+    imageThumbUrl: string
+    imageFullUrl: string
+    imageLinkHTML: string
+    imageUserName: string
+    createdAt?: Date | string
+    organization: OrganizationCreateNestedOneWithoutBoardsInput
+    List?: ListCreateNestedManyWithoutBoardInput
+  }
+
+  export type BoardUncheckedCreateInput = {
+    id?: string
+    title: string
+    orgId: string
+    imageId: string
+    imageThumbUrl: string
+    imageFullUrl: string
+    imageLinkHTML: string
+    imageUserName: string
+    createdAt?: Date | string
+    List?: ListUncheckedCreateNestedManyWithoutBoardInput
+  }
+
+  export type BoardUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    imageId?: StringFieldUpdateOperationsInput | string
+    imageThumbUrl?: StringFieldUpdateOperationsInput | string
+    imageFullUrl?: StringFieldUpdateOperationsInput | string
+    imageLinkHTML?: StringFieldUpdateOperationsInput | string
+    imageUserName?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneRequiredWithoutBoardsNestedInput
+    List?: ListUpdateManyWithoutBoardNestedInput
+  }
+
+  export type BoardUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    orgId?: StringFieldUpdateOperationsInput | string
+    imageId?: StringFieldUpdateOperationsInput | string
+    imageThumbUrl?: StringFieldUpdateOperationsInput | string
+    imageFullUrl?: StringFieldUpdateOperationsInput | string
+    imageLinkHTML?: StringFieldUpdateOperationsInput | string
+    imageUserName?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    List?: ListUncheckedUpdateManyWithoutBoardNestedInput
+  }
+
+  export type BoardCreateManyInput = {
+    id?: string
+    title: string
+    orgId: string
+    imageId: string
+    imageThumbUrl: string
+    imageFullUrl: string
+    imageLinkHTML: string
+    imageUserName: string
+    createdAt?: Date | string
+  }
+
+  export type BoardUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    imageId?: StringFieldUpdateOperationsInput | string
+    imageThumbUrl?: StringFieldUpdateOperationsInput | string
+    imageFullUrl?: StringFieldUpdateOperationsInput | string
+    imageLinkHTML?: StringFieldUpdateOperationsInput | string
+    imageUserName?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BoardUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    orgId?: StringFieldUpdateOperationsInput | string
+    imageId?: StringFieldUpdateOperationsInput | string
+    imageThumbUrl?: StringFieldUpdateOperationsInput | string
+    imageFullUrl?: StringFieldUpdateOperationsInput | string
+    imageLinkHTML?: StringFieldUpdateOperationsInput | string
+    imageUserName?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ListCreateInput = {
+    id?: string
+    title: string
+    order: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    cards?: CardCreateNestedManyWithoutListInput
+    board: BoardCreateNestedOneWithoutListInput
+  }
+
+  export type ListUncheckedCreateInput = {
+    id?: string
+    title: string
+    order: number
+    boardId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    cards?: CardUncheckedCreateNestedManyWithoutListInput
+  }
+
+  export type ListUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    cards?: CardUpdateManyWithoutListNestedInput
+    board?: BoardUpdateOneRequiredWithoutListNestedInput
+  }
+
+  export type ListUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    boardId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    cards?: CardUncheckedUpdateManyWithoutListNestedInput
+  }
+
+  export type ListCreateManyInput = {
+    id?: string
+    title: string
+    order: number
+    boardId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ListUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ListUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    boardId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CardCreateInput = {
+    id?: string
+    title: string
+    order: number
+    description?: string | null
+    status: $Enums.STATUS
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    list: ListCreateNestedOneWithoutCardsInput
+  }
+
+  export type CardUncheckedCreateInput = {
+    id?: string
+    title: string
+    order: number
+    description?: string | null
+    status: $Enums.STATUS
+    listId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CardUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumSTATUSFieldUpdateOperationsInput | $Enums.STATUS
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    list?: ListUpdateOneRequiredWithoutCardsNestedInput
+  }
+
+  export type CardUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumSTATUSFieldUpdateOperationsInput | $Enums.STATUS
+    listId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CardCreateManyInput = {
+    id?: string
+    title: string
+    order: number
+    description?: string | null
+    status: $Enums.STATUS
+    listId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CardUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumSTATUSFieldUpdateOperationsInput | $Enums.STATUS
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CardUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumSTATUSFieldUpdateOperationsInput | $Enums.STATUS
+    listId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AuditLogCreateInput = {
+    id?: string
+    orgId: string
+    action: $Enums.ACTION
+    entityId: string
+    entityType: $Enums.ENTITY_TYPE
+    entityTitle: string
+    userId: string
+    userImage: string
+    userName: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AuditLogUncheckedCreateInput = {
+    id?: string
+    orgId: string
+    action: $Enums.ACTION
+    entityId: string
+    entityType: $Enums.ENTITY_TYPE
+    entityTitle: string
+    userId: string
+    userImage: string
+    userName: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AuditLogUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    orgId?: StringFieldUpdateOperationsInput | string
+    action?: EnumACTIONFieldUpdateOperationsInput | $Enums.ACTION
+    entityId?: StringFieldUpdateOperationsInput | string
+    entityType?: EnumENTITY_TYPEFieldUpdateOperationsInput | $Enums.ENTITY_TYPE
+    entityTitle?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    userImage?: StringFieldUpdateOperationsInput | string
+    userName?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AuditLogUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    orgId?: StringFieldUpdateOperationsInput | string
+    action?: EnumACTIONFieldUpdateOperationsInput | $Enums.ACTION
+    entityId?: StringFieldUpdateOperationsInput | string
+    entityType?: EnumENTITY_TYPEFieldUpdateOperationsInput | $Enums.ENTITY_TYPE
+    entityTitle?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    userImage?: StringFieldUpdateOperationsInput | string
+    userName?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AuditLogCreateManyInput = {
+    id?: string
+    orgId: string
+    action: $Enums.ACTION
+    entityId: string
+    entityType: $Enums.ENTITY_TYPE
+    entityTitle: string
+    userId: string
+    userImage: string
+    userName: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AuditLogUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    orgId?: StringFieldUpdateOperationsInput | string
+    action?: EnumACTIONFieldUpdateOperationsInput | $Enums.ACTION
+    entityId?: StringFieldUpdateOperationsInput | string
+    entityType?: EnumENTITY_TYPEFieldUpdateOperationsInput | $Enums.ENTITY_TYPE
+    entityTitle?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    userImage?: StringFieldUpdateOperationsInput | string
+    userName?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AuditLogUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    orgId?: StringFieldUpdateOperationsInput | string
+    action?: EnumACTIONFieldUpdateOperationsInput | $Enums.ACTION
+    entityId?: StringFieldUpdateOperationsInput | string
+    entityType?: EnumENTITY_TYPEFieldUpdateOperationsInput | $Enums.ENTITY_TYPE
+    entityTitle?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    userImage?: StringFieldUpdateOperationsInput | string
+    userName?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8145,6 +13857,16 @@ export namespace Prisma {
     not?: NestedBytesNullableFilter<$PrismaModel> | Uint8Array | null
   }
 
+  export type BoardListRelationFilter = {
+    every?: BoardWhereInput
+    some?: BoardWhereInput
+    none?: BoardWhereInput
+  }
+
+  export type BoardOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type OrganizationCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -8231,6 +13953,241 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumOrganizationRoleFilter<$PrismaModel>
     _max?: NestedEnumOrganizationRoleFilter<$PrismaModel>
+  }
+
+  export type ListListRelationFilter = {
+    every?: ListWhereInput
+    some?: ListWhereInput
+    none?: ListWhereInput
+  }
+
+  export type ListOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type BoardCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    orgId?: SortOrder
+    imageId?: SortOrder
+    imageThumbUrl?: SortOrder
+    imageFullUrl?: SortOrder
+    imageLinkHTML?: SortOrder
+    imageUserName?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type BoardMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    orgId?: SortOrder
+    imageId?: SortOrder
+    imageThumbUrl?: SortOrder
+    imageFullUrl?: SortOrder
+    imageLinkHTML?: SortOrder
+    imageUserName?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type BoardMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    orgId?: SortOrder
+    imageId?: SortOrder
+    imageThumbUrl?: SortOrder
+    imageFullUrl?: SortOrder
+    imageLinkHTML?: SortOrder
+    imageUserName?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CardListRelationFilter = {
+    every?: CardWhereInput
+    some?: CardWhereInput
+    none?: CardWhereInput
+  }
+
+  export type BoardScalarRelationFilter = {
+    is?: BoardWhereInput
+    isNot?: BoardWhereInput
+  }
+
+  export type CardOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ListCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    order?: SortOrder
+    boardId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ListAvgOrderByAggregateInput = {
+    order?: SortOrder
+  }
+
+  export type ListMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    order?: SortOrder
+    boardId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ListMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    order?: SortOrder
+    boardId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ListSumOrderByAggregateInput = {
+    order?: SortOrder
+  }
+
+  export type EnumSTATUSFilter<$PrismaModel = never> = {
+    equals?: $Enums.STATUS | EnumSTATUSFieldRefInput<$PrismaModel>
+    in?: $Enums.STATUS[] | ListEnumSTATUSFieldRefInput<$PrismaModel>
+    notIn?: $Enums.STATUS[] | ListEnumSTATUSFieldRefInput<$PrismaModel>
+    not?: NestedEnumSTATUSFilter<$PrismaModel> | $Enums.STATUS
+  }
+
+  export type ListScalarRelationFilter = {
+    is?: ListWhereInput
+    isNot?: ListWhereInput
+  }
+
+  export type CardCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    order?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    listId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CardAvgOrderByAggregateInput = {
+    order?: SortOrder
+  }
+
+  export type CardMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    order?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    listId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CardMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    order?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    listId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CardSumOrderByAggregateInput = {
+    order?: SortOrder
+  }
+
+  export type EnumSTATUSWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.STATUS | EnumSTATUSFieldRefInput<$PrismaModel>
+    in?: $Enums.STATUS[] | ListEnumSTATUSFieldRefInput<$PrismaModel>
+    notIn?: $Enums.STATUS[] | ListEnumSTATUSFieldRefInput<$PrismaModel>
+    not?: NestedEnumSTATUSWithAggregatesFilter<$PrismaModel> | $Enums.STATUS
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSTATUSFilter<$PrismaModel>
+    _max?: NestedEnumSTATUSFilter<$PrismaModel>
+  }
+
+  export type EnumACTIONFilter<$PrismaModel = never> = {
+    equals?: $Enums.ACTION | EnumACTIONFieldRefInput<$PrismaModel>
+    in?: $Enums.ACTION[] | ListEnumACTIONFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ACTION[] | ListEnumACTIONFieldRefInput<$PrismaModel>
+    not?: NestedEnumACTIONFilter<$PrismaModel> | $Enums.ACTION
+  }
+
+  export type EnumENTITY_TYPEFilter<$PrismaModel = never> = {
+    equals?: $Enums.ENTITY_TYPE | EnumENTITY_TYPEFieldRefInput<$PrismaModel>
+    in?: $Enums.ENTITY_TYPE[] | ListEnumENTITY_TYPEFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ENTITY_TYPE[] | ListEnumENTITY_TYPEFieldRefInput<$PrismaModel>
+    not?: NestedEnumENTITY_TYPEFilter<$PrismaModel> | $Enums.ENTITY_TYPE
+  }
+
+  export type AuditLogCountOrderByAggregateInput = {
+    id?: SortOrder
+    orgId?: SortOrder
+    action?: SortOrder
+    entityId?: SortOrder
+    entityType?: SortOrder
+    entityTitle?: SortOrder
+    userId?: SortOrder
+    userImage?: SortOrder
+    userName?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AuditLogMaxOrderByAggregateInput = {
+    id?: SortOrder
+    orgId?: SortOrder
+    action?: SortOrder
+    entityId?: SortOrder
+    entityType?: SortOrder
+    entityTitle?: SortOrder
+    userId?: SortOrder
+    userImage?: SortOrder
+    userName?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AuditLogMinOrderByAggregateInput = {
+    id?: SortOrder
+    orgId?: SortOrder
+    action?: SortOrder
+    entityId?: SortOrder
+    entityType?: SortOrder
+    entityTitle?: SortOrder
+    userId?: SortOrder
+    userImage?: SortOrder
+    userName?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumACTIONWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ACTION | EnumACTIONFieldRefInput<$PrismaModel>
+    in?: $Enums.ACTION[] | ListEnumACTIONFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ACTION[] | ListEnumACTIONFieldRefInput<$PrismaModel>
+    not?: NestedEnumACTIONWithAggregatesFilter<$PrismaModel> | $Enums.ACTION
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumACTIONFilter<$PrismaModel>
+    _max?: NestedEnumACTIONFilter<$PrismaModel>
+  }
+
+  export type EnumENTITY_TYPEWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ENTITY_TYPE | EnumENTITY_TYPEFieldRefInput<$PrismaModel>
+    in?: $Enums.ENTITY_TYPE[] | ListEnumENTITY_TYPEFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ENTITY_TYPE[] | ListEnumENTITY_TYPEFieldRefInput<$PrismaModel>
+    not?: NestedEnumENTITY_TYPEWithAggregatesFilter<$PrismaModel> | $Enums.ENTITY_TYPE
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumENTITY_TYPEFilter<$PrismaModel>
+    _max?: NestedEnumENTITY_TYPEFilter<$PrismaModel>
   }
 
   export type AccountCreateNestedManyWithoutUserInput = {
@@ -8376,11 +14333,25 @@ export namespace Prisma {
     connect?: OrganizationMembershipWhereUniqueInput | OrganizationMembershipWhereUniqueInput[]
   }
 
+  export type BoardCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<BoardCreateWithoutOrganizationInput, BoardUncheckedCreateWithoutOrganizationInput> | BoardCreateWithoutOrganizationInput[] | BoardUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: BoardCreateOrConnectWithoutOrganizationInput | BoardCreateOrConnectWithoutOrganizationInput[]
+    createMany?: BoardCreateManyOrganizationInputEnvelope
+    connect?: BoardWhereUniqueInput | BoardWhereUniqueInput[]
+  }
+
   export type OrganizationMembershipUncheckedCreateNestedManyWithoutOrganizationInput = {
     create?: XOR<OrganizationMembershipCreateWithoutOrganizationInput, OrganizationMembershipUncheckedCreateWithoutOrganizationInput> | OrganizationMembershipCreateWithoutOrganizationInput[] | OrganizationMembershipUncheckedCreateWithoutOrganizationInput[]
     connectOrCreate?: OrganizationMembershipCreateOrConnectWithoutOrganizationInput | OrganizationMembershipCreateOrConnectWithoutOrganizationInput[]
     createMany?: OrganizationMembershipCreateManyOrganizationInputEnvelope
     connect?: OrganizationMembershipWhereUniqueInput | OrganizationMembershipWhereUniqueInput[]
+  }
+
+  export type BoardUncheckedCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<BoardCreateWithoutOrganizationInput, BoardUncheckedCreateWithoutOrganizationInput> | BoardCreateWithoutOrganizationInput[] | BoardUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: BoardCreateOrConnectWithoutOrganizationInput | BoardCreateOrConnectWithoutOrganizationInput[]
+    createMany?: BoardCreateManyOrganizationInputEnvelope
+    connect?: BoardWhereUniqueInput | BoardWhereUniqueInput[]
   }
 
   export type NullableBytesFieldUpdateOperationsInput = {
@@ -8401,6 +14372,20 @@ export namespace Prisma {
     deleteMany?: OrganizationMembershipScalarWhereInput | OrganizationMembershipScalarWhereInput[]
   }
 
+  export type BoardUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<BoardCreateWithoutOrganizationInput, BoardUncheckedCreateWithoutOrganizationInput> | BoardCreateWithoutOrganizationInput[] | BoardUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: BoardCreateOrConnectWithoutOrganizationInput | BoardCreateOrConnectWithoutOrganizationInput[]
+    upsert?: BoardUpsertWithWhereUniqueWithoutOrganizationInput | BoardUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: BoardCreateManyOrganizationInputEnvelope
+    set?: BoardWhereUniqueInput | BoardWhereUniqueInput[]
+    disconnect?: BoardWhereUniqueInput | BoardWhereUniqueInput[]
+    delete?: BoardWhereUniqueInput | BoardWhereUniqueInput[]
+    connect?: BoardWhereUniqueInput | BoardWhereUniqueInput[]
+    update?: BoardUpdateWithWhereUniqueWithoutOrganizationInput | BoardUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: BoardUpdateManyWithWhereWithoutOrganizationInput | BoardUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: BoardScalarWhereInput | BoardScalarWhereInput[]
+  }
+
   export type OrganizationMembershipUncheckedUpdateManyWithoutOrganizationNestedInput = {
     create?: XOR<OrganizationMembershipCreateWithoutOrganizationInput, OrganizationMembershipUncheckedCreateWithoutOrganizationInput> | OrganizationMembershipCreateWithoutOrganizationInput[] | OrganizationMembershipUncheckedCreateWithoutOrganizationInput[]
     connectOrCreate?: OrganizationMembershipCreateOrConnectWithoutOrganizationInput | OrganizationMembershipCreateOrConnectWithoutOrganizationInput[]
@@ -8413,6 +14398,20 @@ export namespace Prisma {
     update?: OrganizationMembershipUpdateWithWhereUniqueWithoutOrganizationInput | OrganizationMembershipUpdateWithWhereUniqueWithoutOrganizationInput[]
     updateMany?: OrganizationMembershipUpdateManyWithWhereWithoutOrganizationInput | OrganizationMembershipUpdateManyWithWhereWithoutOrganizationInput[]
     deleteMany?: OrganizationMembershipScalarWhereInput | OrganizationMembershipScalarWhereInput[]
+  }
+
+  export type BoardUncheckedUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<BoardCreateWithoutOrganizationInput, BoardUncheckedCreateWithoutOrganizationInput> | BoardCreateWithoutOrganizationInput[] | BoardUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: BoardCreateOrConnectWithoutOrganizationInput | BoardCreateOrConnectWithoutOrganizationInput[]
+    upsert?: BoardUpsertWithWhereUniqueWithoutOrganizationInput | BoardUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: BoardCreateManyOrganizationInputEnvelope
+    set?: BoardWhereUniqueInput | BoardWhereUniqueInput[]
+    disconnect?: BoardWhereUniqueInput | BoardWhereUniqueInput[]
+    delete?: BoardWhereUniqueInput | BoardWhereUniqueInput[]
+    connect?: BoardWhereUniqueInput | BoardWhereUniqueInput[]
+    update?: BoardUpdateWithWhereUniqueWithoutOrganizationInput | BoardUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: BoardUpdateManyWithWhereWithoutOrganizationInput | BoardUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: BoardScalarWhereInput | BoardScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutMembershipsInput = {
@@ -8445,6 +14444,144 @@ export namespace Prisma {
     upsert?: OrganizationUpsertWithoutMembershipsInput
     connect?: OrganizationWhereUniqueInput
     update?: XOR<XOR<OrganizationUpdateToOneWithWhereWithoutMembershipsInput, OrganizationUpdateWithoutMembershipsInput>, OrganizationUncheckedUpdateWithoutMembershipsInput>
+  }
+
+  export type OrganizationCreateNestedOneWithoutBoardsInput = {
+    create?: XOR<OrganizationCreateWithoutBoardsInput, OrganizationUncheckedCreateWithoutBoardsInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutBoardsInput
+    connect?: OrganizationWhereUniqueInput
+  }
+
+  export type ListCreateNestedManyWithoutBoardInput = {
+    create?: XOR<ListCreateWithoutBoardInput, ListUncheckedCreateWithoutBoardInput> | ListCreateWithoutBoardInput[] | ListUncheckedCreateWithoutBoardInput[]
+    connectOrCreate?: ListCreateOrConnectWithoutBoardInput | ListCreateOrConnectWithoutBoardInput[]
+    createMany?: ListCreateManyBoardInputEnvelope
+    connect?: ListWhereUniqueInput | ListWhereUniqueInput[]
+  }
+
+  export type ListUncheckedCreateNestedManyWithoutBoardInput = {
+    create?: XOR<ListCreateWithoutBoardInput, ListUncheckedCreateWithoutBoardInput> | ListCreateWithoutBoardInput[] | ListUncheckedCreateWithoutBoardInput[]
+    connectOrCreate?: ListCreateOrConnectWithoutBoardInput | ListCreateOrConnectWithoutBoardInput[]
+    createMany?: ListCreateManyBoardInputEnvelope
+    connect?: ListWhereUniqueInput | ListWhereUniqueInput[]
+  }
+
+  export type OrganizationUpdateOneRequiredWithoutBoardsNestedInput = {
+    create?: XOR<OrganizationCreateWithoutBoardsInput, OrganizationUncheckedCreateWithoutBoardsInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutBoardsInput
+    upsert?: OrganizationUpsertWithoutBoardsInput
+    connect?: OrganizationWhereUniqueInput
+    update?: XOR<XOR<OrganizationUpdateToOneWithWhereWithoutBoardsInput, OrganizationUpdateWithoutBoardsInput>, OrganizationUncheckedUpdateWithoutBoardsInput>
+  }
+
+  export type ListUpdateManyWithoutBoardNestedInput = {
+    create?: XOR<ListCreateWithoutBoardInput, ListUncheckedCreateWithoutBoardInput> | ListCreateWithoutBoardInput[] | ListUncheckedCreateWithoutBoardInput[]
+    connectOrCreate?: ListCreateOrConnectWithoutBoardInput | ListCreateOrConnectWithoutBoardInput[]
+    upsert?: ListUpsertWithWhereUniqueWithoutBoardInput | ListUpsertWithWhereUniqueWithoutBoardInput[]
+    createMany?: ListCreateManyBoardInputEnvelope
+    set?: ListWhereUniqueInput | ListWhereUniqueInput[]
+    disconnect?: ListWhereUniqueInput | ListWhereUniqueInput[]
+    delete?: ListWhereUniqueInput | ListWhereUniqueInput[]
+    connect?: ListWhereUniqueInput | ListWhereUniqueInput[]
+    update?: ListUpdateWithWhereUniqueWithoutBoardInput | ListUpdateWithWhereUniqueWithoutBoardInput[]
+    updateMany?: ListUpdateManyWithWhereWithoutBoardInput | ListUpdateManyWithWhereWithoutBoardInput[]
+    deleteMany?: ListScalarWhereInput | ListScalarWhereInput[]
+  }
+
+  export type ListUncheckedUpdateManyWithoutBoardNestedInput = {
+    create?: XOR<ListCreateWithoutBoardInput, ListUncheckedCreateWithoutBoardInput> | ListCreateWithoutBoardInput[] | ListUncheckedCreateWithoutBoardInput[]
+    connectOrCreate?: ListCreateOrConnectWithoutBoardInput | ListCreateOrConnectWithoutBoardInput[]
+    upsert?: ListUpsertWithWhereUniqueWithoutBoardInput | ListUpsertWithWhereUniqueWithoutBoardInput[]
+    createMany?: ListCreateManyBoardInputEnvelope
+    set?: ListWhereUniqueInput | ListWhereUniqueInput[]
+    disconnect?: ListWhereUniqueInput | ListWhereUniqueInput[]
+    delete?: ListWhereUniqueInput | ListWhereUniqueInput[]
+    connect?: ListWhereUniqueInput | ListWhereUniqueInput[]
+    update?: ListUpdateWithWhereUniqueWithoutBoardInput | ListUpdateWithWhereUniqueWithoutBoardInput[]
+    updateMany?: ListUpdateManyWithWhereWithoutBoardInput | ListUpdateManyWithWhereWithoutBoardInput[]
+    deleteMany?: ListScalarWhereInput | ListScalarWhereInput[]
+  }
+
+  export type CardCreateNestedManyWithoutListInput = {
+    create?: XOR<CardCreateWithoutListInput, CardUncheckedCreateWithoutListInput> | CardCreateWithoutListInput[] | CardUncheckedCreateWithoutListInput[]
+    connectOrCreate?: CardCreateOrConnectWithoutListInput | CardCreateOrConnectWithoutListInput[]
+    createMany?: CardCreateManyListInputEnvelope
+    connect?: CardWhereUniqueInput | CardWhereUniqueInput[]
+  }
+
+  export type BoardCreateNestedOneWithoutListInput = {
+    create?: XOR<BoardCreateWithoutListInput, BoardUncheckedCreateWithoutListInput>
+    connectOrCreate?: BoardCreateOrConnectWithoutListInput
+    connect?: BoardWhereUniqueInput
+  }
+
+  export type CardUncheckedCreateNestedManyWithoutListInput = {
+    create?: XOR<CardCreateWithoutListInput, CardUncheckedCreateWithoutListInput> | CardCreateWithoutListInput[] | CardUncheckedCreateWithoutListInput[]
+    connectOrCreate?: CardCreateOrConnectWithoutListInput | CardCreateOrConnectWithoutListInput[]
+    createMany?: CardCreateManyListInputEnvelope
+    connect?: CardWhereUniqueInput | CardWhereUniqueInput[]
+  }
+
+  export type CardUpdateManyWithoutListNestedInput = {
+    create?: XOR<CardCreateWithoutListInput, CardUncheckedCreateWithoutListInput> | CardCreateWithoutListInput[] | CardUncheckedCreateWithoutListInput[]
+    connectOrCreate?: CardCreateOrConnectWithoutListInput | CardCreateOrConnectWithoutListInput[]
+    upsert?: CardUpsertWithWhereUniqueWithoutListInput | CardUpsertWithWhereUniqueWithoutListInput[]
+    createMany?: CardCreateManyListInputEnvelope
+    set?: CardWhereUniqueInput | CardWhereUniqueInput[]
+    disconnect?: CardWhereUniqueInput | CardWhereUniqueInput[]
+    delete?: CardWhereUniqueInput | CardWhereUniqueInput[]
+    connect?: CardWhereUniqueInput | CardWhereUniqueInput[]
+    update?: CardUpdateWithWhereUniqueWithoutListInput | CardUpdateWithWhereUniqueWithoutListInput[]
+    updateMany?: CardUpdateManyWithWhereWithoutListInput | CardUpdateManyWithWhereWithoutListInput[]
+    deleteMany?: CardScalarWhereInput | CardScalarWhereInput[]
+  }
+
+  export type BoardUpdateOneRequiredWithoutListNestedInput = {
+    create?: XOR<BoardCreateWithoutListInput, BoardUncheckedCreateWithoutListInput>
+    connectOrCreate?: BoardCreateOrConnectWithoutListInput
+    upsert?: BoardUpsertWithoutListInput
+    connect?: BoardWhereUniqueInput
+    update?: XOR<XOR<BoardUpdateToOneWithWhereWithoutListInput, BoardUpdateWithoutListInput>, BoardUncheckedUpdateWithoutListInput>
+  }
+
+  export type CardUncheckedUpdateManyWithoutListNestedInput = {
+    create?: XOR<CardCreateWithoutListInput, CardUncheckedCreateWithoutListInput> | CardCreateWithoutListInput[] | CardUncheckedCreateWithoutListInput[]
+    connectOrCreate?: CardCreateOrConnectWithoutListInput | CardCreateOrConnectWithoutListInput[]
+    upsert?: CardUpsertWithWhereUniqueWithoutListInput | CardUpsertWithWhereUniqueWithoutListInput[]
+    createMany?: CardCreateManyListInputEnvelope
+    set?: CardWhereUniqueInput | CardWhereUniqueInput[]
+    disconnect?: CardWhereUniqueInput | CardWhereUniqueInput[]
+    delete?: CardWhereUniqueInput | CardWhereUniqueInput[]
+    connect?: CardWhereUniqueInput | CardWhereUniqueInput[]
+    update?: CardUpdateWithWhereUniqueWithoutListInput | CardUpdateWithWhereUniqueWithoutListInput[]
+    updateMany?: CardUpdateManyWithWhereWithoutListInput | CardUpdateManyWithWhereWithoutListInput[]
+    deleteMany?: CardScalarWhereInput | CardScalarWhereInput[]
+  }
+
+  export type ListCreateNestedOneWithoutCardsInput = {
+    create?: XOR<ListCreateWithoutCardsInput, ListUncheckedCreateWithoutCardsInput>
+    connectOrCreate?: ListCreateOrConnectWithoutCardsInput
+    connect?: ListWhereUniqueInput
+  }
+
+  export type EnumSTATUSFieldUpdateOperationsInput = {
+    set?: $Enums.STATUS
+  }
+
+  export type ListUpdateOneRequiredWithoutCardsNestedInput = {
+    create?: XOR<ListCreateWithoutCardsInput, ListUncheckedCreateWithoutCardsInput>
+    connectOrCreate?: ListCreateOrConnectWithoutCardsInput
+    upsert?: ListUpsertWithoutCardsInput
+    connect?: ListWhereUniqueInput
+    update?: XOR<XOR<ListUpdateToOneWithWhereWithoutCardsInput, ListUpdateWithoutCardsInput>, ListUncheckedUpdateWithoutCardsInput>
+  }
+
+  export type EnumACTIONFieldUpdateOperationsInput = {
+    set?: $Enums.ACTION
+  }
+
+  export type EnumENTITY_TYPEFieldUpdateOperationsInput = {
+    set?: $Enums.ENTITY_TYPE
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -8681,6 +14818,57 @@ export namespace Prisma {
     _max?: NestedEnumOrganizationRoleFilter<$PrismaModel>
   }
 
+  export type NestedEnumSTATUSFilter<$PrismaModel = never> = {
+    equals?: $Enums.STATUS | EnumSTATUSFieldRefInput<$PrismaModel>
+    in?: $Enums.STATUS[] | ListEnumSTATUSFieldRefInput<$PrismaModel>
+    notIn?: $Enums.STATUS[] | ListEnumSTATUSFieldRefInput<$PrismaModel>
+    not?: NestedEnumSTATUSFilter<$PrismaModel> | $Enums.STATUS
+  }
+
+  export type NestedEnumSTATUSWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.STATUS | EnumSTATUSFieldRefInput<$PrismaModel>
+    in?: $Enums.STATUS[] | ListEnumSTATUSFieldRefInput<$PrismaModel>
+    notIn?: $Enums.STATUS[] | ListEnumSTATUSFieldRefInput<$PrismaModel>
+    not?: NestedEnumSTATUSWithAggregatesFilter<$PrismaModel> | $Enums.STATUS
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSTATUSFilter<$PrismaModel>
+    _max?: NestedEnumSTATUSFilter<$PrismaModel>
+  }
+
+  export type NestedEnumACTIONFilter<$PrismaModel = never> = {
+    equals?: $Enums.ACTION | EnumACTIONFieldRefInput<$PrismaModel>
+    in?: $Enums.ACTION[] | ListEnumACTIONFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ACTION[] | ListEnumACTIONFieldRefInput<$PrismaModel>
+    not?: NestedEnumACTIONFilter<$PrismaModel> | $Enums.ACTION
+  }
+
+  export type NestedEnumENTITY_TYPEFilter<$PrismaModel = never> = {
+    equals?: $Enums.ENTITY_TYPE | EnumENTITY_TYPEFieldRefInput<$PrismaModel>
+    in?: $Enums.ENTITY_TYPE[] | ListEnumENTITY_TYPEFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ENTITY_TYPE[] | ListEnumENTITY_TYPEFieldRefInput<$PrismaModel>
+    not?: NestedEnumENTITY_TYPEFilter<$PrismaModel> | $Enums.ENTITY_TYPE
+  }
+
+  export type NestedEnumACTIONWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ACTION | EnumACTIONFieldRefInput<$PrismaModel>
+    in?: $Enums.ACTION[] | ListEnumACTIONFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ACTION[] | ListEnumACTIONFieldRefInput<$PrismaModel>
+    not?: NestedEnumACTIONWithAggregatesFilter<$PrismaModel> | $Enums.ACTION
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumACTIONFilter<$PrismaModel>
+    _max?: NestedEnumACTIONFilter<$PrismaModel>
+  }
+
+  export type NestedEnumENTITY_TYPEWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ENTITY_TYPE | EnumENTITY_TYPEFieldRefInput<$PrismaModel>
+    in?: $Enums.ENTITY_TYPE[] | ListEnumENTITY_TYPEFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ENTITY_TYPE[] | ListEnumENTITY_TYPEFieldRefInput<$PrismaModel>
+    not?: NestedEnumENTITY_TYPEWithAggregatesFilter<$PrismaModel> | $Enums.ENTITY_TYPE
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumENTITY_TYPEFilter<$PrismaModel>
+    _max?: NestedEnumENTITY_TYPEFilter<$PrismaModel>
+  }
+
   export type AccountCreateWithoutUserInput = {
     id?: string
     type: string
@@ -8900,6 +15088,40 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type BoardCreateWithoutOrganizationInput = {
+    id?: string
+    title: string
+    imageId: string
+    imageThumbUrl: string
+    imageFullUrl: string
+    imageLinkHTML: string
+    imageUserName: string
+    createdAt?: Date | string
+    List?: ListCreateNestedManyWithoutBoardInput
+  }
+
+  export type BoardUncheckedCreateWithoutOrganizationInput = {
+    id?: string
+    title: string
+    imageId: string
+    imageThumbUrl: string
+    imageFullUrl: string
+    imageLinkHTML: string
+    imageUserName: string
+    createdAt?: Date | string
+    List?: ListUncheckedCreateNestedManyWithoutBoardInput
+  }
+
+  export type BoardCreateOrConnectWithoutOrganizationInput = {
+    where: BoardWhereUniqueInput
+    create: XOR<BoardCreateWithoutOrganizationInput, BoardUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type BoardCreateManyOrganizationInputEnvelope = {
+    data: BoardCreateManyOrganizationInput | BoardCreateManyOrganizationInput[]
+    skipDuplicates?: boolean
+  }
+
   export type OrganizationMembershipUpsertWithWhereUniqueWithoutOrganizationInput = {
     where: OrganizationMembershipWhereUniqueInput
     update: XOR<OrganizationMembershipUpdateWithoutOrganizationInput, OrganizationMembershipUncheckedUpdateWithoutOrganizationInput>
@@ -8914,6 +15136,37 @@ export namespace Prisma {
   export type OrganizationMembershipUpdateManyWithWhereWithoutOrganizationInput = {
     where: OrganizationMembershipScalarWhereInput
     data: XOR<OrganizationMembershipUpdateManyMutationInput, OrganizationMembershipUncheckedUpdateManyWithoutOrganizationInput>
+  }
+
+  export type BoardUpsertWithWhereUniqueWithoutOrganizationInput = {
+    where: BoardWhereUniqueInput
+    update: XOR<BoardUpdateWithoutOrganizationInput, BoardUncheckedUpdateWithoutOrganizationInput>
+    create: XOR<BoardCreateWithoutOrganizationInput, BoardUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type BoardUpdateWithWhereUniqueWithoutOrganizationInput = {
+    where: BoardWhereUniqueInput
+    data: XOR<BoardUpdateWithoutOrganizationInput, BoardUncheckedUpdateWithoutOrganizationInput>
+  }
+
+  export type BoardUpdateManyWithWhereWithoutOrganizationInput = {
+    where: BoardScalarWhereInput
+    data: XOR<BoardUpdateManyMutationInput, BoardUncheckedUpdateManyWithoutOrganizationInput>
+  }
+
+  export type BoardScalarWhereInput = {
+    AND?: BoardScalarWhereInput | BoardScalarWhereInput[]
+    OR?: BoardScalarWhereInput[]
+    NOT?: BoardScalarWhereInput | BoardScalarWhereInput[]
+    id?: StringFilter<"Board"> | string
+    title?: StringFilter<"Board"> | string
+    orgId?: StringFilter<"Board"> | string
+    imageId?: StringFilter<"Board"> | string
+    imageThumbUrl?: StringFilter<"Board"> | string
+    imageFullUrl?: StringFilter<"Board"> | string
+    imageLinkHTML?: StringFilter<"Board"> | string
+    imageUserName?: StringFilter<"Board"> | string
+    createdAt?: DateTimeFilter<"Board"> | Date | string
   }
 
   export type UserCreateWithoutMembershipsInput = {
@@ -8957,6 +15210,7 @@ export namespace Prisma {
     avatar?: Uint8Array | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    boards?: BoardCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutMembershipsInput = {
@@ -8965,6 +15219,7 @@ export namespace Prisma {
     avatar?: Uint8Array | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    boards?: BoardUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutMembershipsInput = {
@@ -9030,12 +15285,298 @@ export namespace Prisma {
     avatar?: NullableBytesFieldUpdateOperationsInput | Uint8Array | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    boards?: BoardUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutMembershipsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     avatar?: NullableBytesFieldUpdateOperationsInput | Uint8Array | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    boards?: BoardUncheckedUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationCreateWithoutBoardsInput = {
+    id?: string
+    name: string
+    avatar?: Uint8Array | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    memberships?: OrganizationMembershipCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationUncheckedCreateWithoutBoardsInput = {
+    id?: string
+    name: string
+    avatar?: Uint8Array | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    memberships?: OrganizationMembershipUncheckedCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationCreateOrConnectWithoutBoardsInput = {
+    where: OrganizationWhereUniqueInput
+    create: XOR<OrganizationCreateWithoutBoardsInput, OrganizationUncheckedCreateWithoutBoardsInput>
+  }
+
+  export type ListCreateWithoutBoardInput = {
+    id?: string
+    title: string
+    order: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    cards?: CardCreateNestedManyWithoutListInput
+  }
+
+  export type ListUncheckedCreateWithoutBoardInput = {
+    id?: string
+    title: string
+    order: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    cards?: CardUncheckedCreateNestedManyWithoutListInput
+  }
+
+  export type ListCreateOrConnectWithoutBoardInput = {
+    where: ListWhereUniqueInput
+    create: XOR<ListCreateWithoutBoardInput, ListUncheckedCreateWithoutBoardInput>
+  }
+
+  export type ListCreateManyBoardInputEnvelope = {
+    data: ListCreateManyBoardInput | ListCreateManyBoardInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type OrganizationUpsertWithoutBoardsInput = {
+    update: XOR<OrganizationUpdateWithoutBoardsInput, OrganizationUncheckedUpdateWithoutBoardsInput>
+    create: XOR<OrganizationCreateWithoutBoardsInput, OrganizationUncheckedCreateWithoutBoardsInput>
+    where?: OrganizationWhereInput
+  }
+
+  export type OrganizationUpdateToOneWithWhereWithoutBoardsInput = {
+    where?: OrganizationWhereInput
+    data: XOR<OrganizationUpdateWithoutBoardsInput, OrganizationUncheckedUpdateWithoutBoardsInput>
+  }
+
+  export type OrganizationUpdateWithoutBoardsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableBytesFieldUpdateOperationsInput | Uint8Array | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    memberships?: OrganizationMembershipUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationUncheckedUpdateWithoutBoardsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableBytesFieldUpdateOperationsInput | Uint8Array | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    memberships?: OrganizationMembershipUncheckedUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type ListUpsertWithWhereUniqueWithoutBoardInput = {
+    where: ListWhereUniqueInput
+    update: XOR<ListUpdateWithoutBoardInput, ListUncheckedUpdateWithoutBoardInput>
+    create: XOR<ListCreateWithoutBoardInput, ListUncheckedCreateWithoutBoardInput>
+  }
+
+  export type ListUpdateWithWhereUniqueWithoutBoardInput = {
+    where: ListWhereUniqueInput
+    data: XOR<ListUpdateWithoutBoardInput, ListUncheckedUpdateWithoutBoardInput>
+  }
+
+  export type ListUpdateManyWithWhereWithoutBoardInput = {
+    where: ListScalarWhereInput
+    data: XOR<ListUpdateManyMutationInput, ListUncheckedUpdateManyWithoutBoardInput>
+  }
+
+  export type ListScalarWhereInput = {
+    AND?: ListScalarWhereInput | ListScalarWhereInput[]
+    OR?: ListScalarWhereInput[]
+    NOT?: ListScalarWhereInput | ListScalarWhereInput[]
+    id?: StringFilter<"List"> | string
+    title?: StringFilter<"List"> | string
+    order?: IntFilter<"List"> | number
+    boardId?: StringFilter<"List"> | string
+    createdAt?: DateTimeFilter<"List"> | Date | string
+    updatedAt?: DateTimeFilter<"List"> | Date | string
+  }
+
+  export type CardCreateWithoutListInput = {
+    id?: string
+    title: string
+    order: number
+    description?: string | null
+    status: $Enums.STATUS
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CardUncheckedCreateWithoutListInput = {
+    id?: string
+    title: string
+    order: number
+    description?: string | null
+    status: $Enums.STATUS
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CardCreateOrConnectWithoutListInput = {
+    where: CardWhereUniqueInput
+    create: XOR<CardCreateWithoutListInput, CardUncheckedCreateWithoutListInput>
+  }
+
+  export type CardCreateManyListInputEnvelope = {
+    data: CardCreateManyListInput | CardCreateManyListInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BoardCreateWithoutListInput = {
+    id?: string
+    title: string
+    imageId: string
+    imageThumbUrl: string
+    imageFullUrl: string
+    imageLinkHTML: string
+    imageUserName: string
+    createdAt?: Date | string
+    organization: OrganizationCreateNestedOneWithoutBoardsInput
+  }
+
+  export type BoardUncheckedCreateWithoutListInput = {
+    id?: string
+    title: string
+    orgId: string
+    imageId: string
+    imageThumbUrl: string
+    imageFullUrl: string
+    imageLinkHTML: string
+    imageUserName: string
+    createdAt?: Date | string
+  }
+
+  export type BoardCreateOrConnectWithoutListInput = {
+    where: BoardWhereUniqueInput
+    create: XOR<BoardCreateWithoutListInput, BoardUncheckedCreateWithoutListInput>
+  }
+
+  export type CardUpsertWithWhereUniqueWithoutListInput = {
+    where: CardWhereUniqueInput
+    update: XOR<CardUpdateWithoutListInput, CardUncheckedUpdateWithoutListInput>
+    create: XOR<CardCreateWithoutListInput, CardUncheckedCreateWithoutListInput>
+  }
+
+  export type CardUpdateWithWhereUniqueWithoutListInput = {
+    where: CardWhereUniqueInput
+    data: XOR<CardUpdateWithoutListInput, CardUncheckedUpdateWithoutListInput>
+  }
+
+  export type CardUpdateManyWithWhereWithoutListInput = {
+    where: CardScalarWhereInput
+    data: XOR<CardUpdateManyMutationInput, CardUncheckedUpdateManyWithoutListInput>
+  }
+
+  export type CardScalarWhereInput = {
+    AND?: CardScalarWhereInput | CardScalarWhereInput[]
+    OR?: CardScalarWhereInput[]
+    NOT?: CardScalarWhereInput | CardScalarWhereInput[]
+    id?: StringFilter<"Card"> | string
+    title?: StringFilter<"Card"> | string
+    order?: IntFilter<"Card"> | number
+    description?: StringNullableFilter<"Card"> | string | null
+    status?: EnumSTATUSFilter<"Card"> | $Enums.STATUS
+    listId?: StringFilter<"Card"> | string
+    createdAt?: DateTimeFilter<"Card"> | Date | string
+    updatedAt?: DateTimeFilter<"Card"> | Date | string
+  }
+
+  export type BoardUpsertWithoutListInput = {
+    update: XOR<BoardUpdateWithoutListInput, BoardUncheckedUpdateWithoutListInput>
+    create: XOR<BoardCreateWithoutListInput, BoardUncheckedCreateWithoutListInput>
+    where?: BoardWhereInput
+  }
+
+  export type BoardUpdateToOneWithWhereWithoutListInput = {
+    where?: BoardWhereInput
+    data: XOR<BoardUpdateWithoutListInput, BoardUncheckedUpdateWithoutListInput>
+  }
+
+  export type BoardUpdateWithoutListInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    imageId?: StringFieldUpdateOperationsInput | string
+    imageThumbUrl?: StringFieldUpdateOperationsInput | string
+    imageFullUrl?: StringFieldUpdateOperationsInput | string
+    imageLinkHTML?: StringFieldUpdateOperationsInput | string
+    imageUserName?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneRequiredWithoutBoardsNestedInput
+  }
+
+  export type BoardUncheckedUpdateWithoutListInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    orgId?: StringFieldUpdateOperationsInput | string
+    imageId?: StringFieldUpdateOperationsInput | string
+    imageThumbUrl?: StringFieldUpdateOperationsInput | string
+    imageFullUrl?: StringFieldUpdateOperationsInput | string
+    imageLinkHTML?: StringFieldUpdateOperationsInput | string
+    imageUserName?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ListCreateWithoutCardsInput = {
+    id?: string
+    title: string
+    order: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    board: BoardCreateNestedOneWithoutListInput
+  }
+
+  export type ListUncheckedCreateWithoutCardsInput = {
+    id?: string
+    title: string
+    order: number
+    boardId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ListCreateOrConnectWithoutCardsInput = {
+    where: ListWhereUniqueInput
+    create: XOR<ListCreateWithoutCardsInput, ListUncheckedCreateWithoutCardsInput>
+  }
+
+  export type ListUpsertWithoutCardsInput = {
+    update: XOR<ListUpdateWithoutCardsInput, ListUncheckedUpdateWithoutCardsInput>
+    create: XOR<ListCreateWithoutCardsInput, ListUncheckedCreateWithoutCardsInput>
+    where?: ListWhereInput
+  }
+
+  export type ListUpdateToOneWithWhereWithoutCardsInput = {
+    where?: ListWhereInput
+    data: XOR<ListUpdateWithoutCardsInput, ListUncheckedUpdateWithoutCardsInput>
+  }
+
+  export type ListUpdateWithoutCardsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    board?: BoardUpdateOneRequiredWithoutListNestedInput
+  }
+
+  export type ListUncheckedUpdateWithoutCardsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    boardId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9124,6 +15665,17 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type BoardCreateManyOrganizationInput = {
+    id?: string
+    title: string
+    imageId: string
+    imageThumbUrl: string
+    imageFullUrl: string
+    imageLinkHTML: string
+    imageUserName: string
+    createdAt?: Date | string
+  }
+
   export type OrganizationMembershipUpdateWithoutOrganizationInput = {
     id?: StringFieldUpdateOperationsInput | string
     role?: EnumOrganizationRoleFieldUpdateOperationsInput | $Enums.OrganizationRole
@@ -9144,6 +15696,115 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     role?: EnumOrganizationRoleFieldUpdateOperationsInput | $Enums.OrganizationRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BoardUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    imageId?: StringFieldUpdateOperationsInput | string
+    imageThumbUrl?: StringFieldUpdateOperationsInput | string
+    imageFullUrl?: StringFieldUpdateOperationsInput | string
+    imageLinkHTML?: StringFieldUpdateOperationsInput | string
+    imageUserName?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    List?: ListUpdateManyWithoutBoardNestedInput
+  }
+
+  export type BoardUncheckedUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    imageId?: StringFieldUpdateOperationsInput | string
+    imageThumbUrl?: StringFieldUpdateOperationsInput | string
+    imageFullUrl?: StringFieldUpdateOperationsInput | string
+    imageLinkHTML?: StringFieldUpdateOperationsInput | string
+    imageUserName?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    List?: ListUncheckedUpdateManyWithoutBoardNestedInput
+  }
+
+  export type BoardUncheckedUpdateManyWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    imageId?: StringFieldUpdateOperationsInput | string
+    imageThumbUrl?: StringFieldUpdateOperationsInput | string
+    imageFullUrl?: StringFieldUpdateOperationsInput | string
+    imageLinkHTML?: StringFieldUpdateOperationsInput | string
+    imageUserName?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ListCreateManyBoardInput = {
+    id?: string
+    title: string
+    order: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ListUpdateWithoutBoardInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    cards?: CardUpdateManyWithoutListNestedInput
+  }
+
+  export type ListUncheckedUpdateWithoutBoardInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    cards?: CardUncheckedUpdateManyWithoutListNestedInput
+  }
+
+  export type ListUncheckedUpdateManyWithoutBoardInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CardCreateManyListInput = {
+    id?: string
+    title: string
+    order: number
+    description?: string | null
+    status: $Enums.STATUS
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CardUpdateWithoutListInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumSTATUSFieldUpdateOperationsInput | $Enums.STATUS
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CardUncheckedUpdateWithoutListInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumSTATUSFieldUpdateOperationsInput | $Enums.STATUS
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CardUncheckedUpdateManyWithoutListInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumSTATUSFieldUpdateOperationsInput | $Enums.STATUS
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

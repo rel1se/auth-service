@@ -10,6 +10,9 @@ import { EmailConfirmationModule } from '@/auth/email-confirmation/email-confirm
 import { PasswordRecoveryModule } from '@/auth/password-recovery/password-recovery.module';
 import { TwoFactorAuthModule } from '@/auth/two-factor-auth/two-factor-auth.module';
 import { OrganizationModule } from './organization/organization.module';
+import { BoardModule } from './board/board.module';
+import { ListModule } from './list/list.module';
+import { CardModule } from './card/card.module';
 
 @Module({
   imports: [
@@ -25,7 +28,10 @@ import { OrganizationModule } from './organization/organization.module';
       EmailConfirmationModule,
       PasswordRecoveryModule,
       TwoFactorAuthModule,
-      OrganizationModule
+      OrganizationModule,
+      BoardModule,
+      ListModule,
+      CardModule
   ],
 })
 export class AppModule {}

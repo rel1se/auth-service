@@ -44,7 +44,7 @@ export class AuthService {
 			dto.name,
 			'',
 			AuthMethod.CREDENTIALS,
-			false
+			true
 		)
 
 		await this.emailConfirmationService.sendVerificationToken(newUser.email)

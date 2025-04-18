@@ -72,6 +72,7 @@ model Organization {
   avatar Bytes?
 
   memberships OrganizationMembership[]
+  boards      Board[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -95,6 +96,85 @@ model OrganizationMembership {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("organization_memberships")
+}
+
+model Board {
+  id            String       @id @default(uuid())
+  title         String
+  orgId         String
+  organization  Organization @relation(fields: [orgId], references: [id])
+  imageId       String
+  imageThumbUrl String
+  imageFullUrl  String
+  imageLinkHTML String
+  imageUserName String
+  createdAt     DateTime     @default(now())
+  List          List[]
+}
+
+model List {
+  id    String @id @default(uuid())
+  title String
+  order Int
+
+  cards Card[]
+
+  boardId String
+  board   Board  @relation(fields: [boardId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index(boardId)
+}
+
+enum STATUS {
+  TODO
+  IN_PROGRESS
+  DONE
+}
+
+model Card {
+  id          String  @id @default(uuid())
+  title       String
+  order       Int
+  description String? @db.Text
+  status      STATUS
+
+  listId String
+  list   List   @relation(fields: [listId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index(listId)
+}
+
+enum ACTION {
+  CREATE
+  UPDATE
+  DELETE
+}
+
+enum ENTITY_TYPE {
+  BOARD
+  LIST
+  CARD
+}
+
+model AuditLog {
+  id          String      @id @default(uuid())
+  orgId       String
+  action      ACTION
+  entityId    String
+  entityType  ENTITY_TYPE
+  entityTitle String
+  userId      String
+  userImage   String      @db.Text
+  userName    String      @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 enum UserRole {

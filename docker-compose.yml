@@ -1,22 +1,22 @@
 version: '3.7'
 
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: auth-service-app
-    container_name: auth-service
-    restart: unless-stopped
-    ports:
-      - "4000:4000"
-    env_file:
-      - .env
-    depends_on:
-      - db
-      - redis
-    networks:
-      - backend
+#  app:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    image: auth-service-app
+#    container_name: auth-service
+#    restart: unless-stopped
+#    ports:
+#      - "4000:4000"
+#    env_file:
+#      - .env
+#    depends_on:
+#      - db
+#      - redis
+#    networks:
+#      - backend
 
   db:
     container_name: postgres

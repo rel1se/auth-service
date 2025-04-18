@@ -17,12 +17,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.5.0
- * Query Engine version: 173f8d54f8d52e692c7e27e72a88314ec7aeff60
+ * Prisma Client JS version: 6.6.0
+ * Query Engine version: f676762280b54cd07c770017ed3711ddde35f37a
  */
 Prisma.prismaVersion = {
-  client: "6.5.0",
-  engine: "173f8d54f8d52e692c7e27e72a88314ec7aeff60"
+  client: "6.6.0",
+  engine: "f676762280b54cd07c770017ed3711ddde35f37a"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -169,6 +169,52 @@ exports.Prisma.OrganizationMembershipScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.BoardScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  orgId: 'orgId',
+  imageId: 'imageId',
+  imageThumbUrl: 'imageThumbUrl',
+  imageFullUrl: 'imageFullUrl',
+  imageLinkHTML: 'imageLinkHTML',
+  imageUserName: 'imageUserName',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.ListScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  order: 'order',
+  boardId: 'boardId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CardScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  order: 'order',
+  description: 'description',
+  status: 'status',
+  listId: 'listId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AuditLogScalarFieldEnum = {
+  id: 'id',
+  orgId: 'orgId',
+  action: 'action',
+  entityId: 'entityId',
+  entityType: 'entityType',
+  entityTitle: 'entityTitle',
+  userId: 'userId',
+  userImage: 'userImage',
+  userName: 'userName',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -205,12 +251,34 @@ exports.OrganizationRole = exports.$Enums.OrganizationRole = {
   MEMBER: 'MEMBER'
 };
 
+exports.STATUS = exports.$Enums.STATUS = {
+  TODO: 'TODO',
+  IN_PROGRESS: 'IN_PROGRESS',
+  DONE: 'DONE'
+};
+
+exports.ACTION = exports.$Enums.ACTION = {
+  CREATE: 'CREATE',
+  UPDATE: 'UPDATE',
+  DELETE: 'DELETE'
+};
+
+exports.ENTITY_TYPE = exports.$Enums.ENTITY_TYPE = {
+  BOARD: 'BOARD',
+  LIST: 'LIST',
+  CARD: 'CARD'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Account: 'Account',
   Token: 'Token',
   Organization: 'Organization',
-  OrganizationMembership: 'OrganizationMembership'
+  OrganizationMembership: 'OrganizationMembership',
+  Board: 'Board',
+  List: 'List',
+  Card: 'Card',
+  AuditLog: 'AuditLog'
 };
 
 /**
@@ -230,7 +298,7 @@ class PrismaClient {
         } else {
           message = 'PrismaClient is unable to run in this browser environment, or has been bundled for the browser (running in `' + runtime.prettyName + '`).'
         }
-        
+
         message += `
 If this is unexpected, please open an issue: https://pris.ly/prisma-prisma-bug-report`
 
